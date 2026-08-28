@@ -20,6 +20,8 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
           About
         </a>
       </li>
+      <li><a href="#skills" class="text-gray-700 hover:text-black transition-colors font-medium">Skills</a></li>
+      <li><a href="#problem-solving" class="text-gray-700 hover:text-black transition-colors font-medium">DSA</a></li>
       {
         hasProjects && (
           <li>
@@ -32,18 +34,7 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
           </li>
         )
       }
-      {
-        hasExperience && (
-          <li>
-            <a
-              href="#experience"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
-            >
-              Experience
-            </a>
-          </li>
-        )
-      }
+      <li><a href="#research" class="text-gray-700 hover:text-black transition-colors font-medium">Research</a></li>
       {
         hasEducation && (
           <li>

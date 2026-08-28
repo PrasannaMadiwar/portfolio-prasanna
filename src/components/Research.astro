@@ -1,0 +1,17 @@
+---
+import { siteConfig } from "../config";
+---
+
+<section id="research" class="section-shell">
+  <div class="section-grid">
+    <div>
+      <p class="eyebrow">05 / publication</p>
+      <h2 class="section-title">Research Publication</h2>
+    </div>
+    <article class="publication border-l-4 border-teal-600 pl-6 sm:pl-8">
+      <p class="text-sm font-semibold uppercase tracking-[0.14em] text-teal-700">{siteConfig.publication.venue}</p>
+      <h3 class="mt-4 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">{siteConfig.publication.title}</h3>
+      <p class="mt-4 max-w-2xl text-lg leading-relaxed text-slate-600">{siteConfig.publication.description}</p>
+    </article>
+  </div>
+</section>

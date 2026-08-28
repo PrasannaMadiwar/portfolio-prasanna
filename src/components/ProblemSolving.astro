@@ -1,0 +1,23 @@
+---
+import { siteConfig } from "../config";
+const stats = siteConfig.problemSolving;
+---
+
+<section id="problem-solving" class="section-shell bg-teal-50">
+  <div class="section-grid">
+    <div>
+      <p class="eyebrow">03 / practice</p>
+      <h2 class="section-title">Problem Solving</h2>
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-slate-600">200+ LeetCode problems solved, with a focus on Medium and Hard-level Data Structures & Algorithms problems.</p>
+      <a class="inline-link mt-6" href={stats.link} target="_blank" rel="noopener noreferrer">View LeetCode profile <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="grid grid-cols-2 gap-px overflow-hidden border border-teal-200 bg-teal-200 sm:grid-cols-4">
+      <div class="stat stat-featured col-span-2 sm:col-span-2"><strong>{stats.solved}</strong><span>Problems solved</span></div>
+      <div class="stat"><strong>{stats.medium}</strong><span>Medium</span></div>
+      <div class="stat"><strong>{stats.hard}</strong><span>Hard</span></div>
+      <div class="stat"><strong>{stats.easy}</strong><span>Easy</span></div>
+      <div class="stat"><strong>{stats.submissions}</strong><span>Submissions</span></div>
+      <div class="stat col-span-2"><strong>{stats.acceptance}</strong><span>Acceptance</span></div>
+    </div>
+  </div>
+</section>

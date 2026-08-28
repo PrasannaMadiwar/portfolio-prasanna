@@ -1,0 +1,22 @@
+---
+import { siteConfig } from "../config";
+---
+
+<section id="skills" class="section-shell bg-slate-950 text-white">
+  <div class="section-grid">
+    <div>
+      <p class="eyebrow">02 / toolkit</p>
+      <h2 class="section-title text-white">Technical Skills</h2>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-2">
+      {siteConfig.skillGroups.map((group) => (
+        <article class="skill-card">
+          <h3>{group.name}</h3>
+          <div class="mt-4 flex flex-wrap gap-2">
+            {group.items.map((skill) => <span class="tag tag-dark">{skill}</span>)}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

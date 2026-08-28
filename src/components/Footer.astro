@@ -6,7 +6,7 @@ const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
 const hasEducation = siteConfig.education && siteConfig.education.length > 0;
 ---
 
-<footer class="relative bg-gray-50 border-t border-gray-200">
+<footer id="contact" class="relative bg-gray-50 border-t border-gray-200">
   <div class="mx-auto max-w-6xl px-6 py-12 lg:px-8">
     <div
       class="flex flex-col md:flex-row md:items-center md:justify-between gap-8"
@@ -18,6 +18,7 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
         <p class="text-base text-gray-600">
           {siteConfig.title}
         </p>
+        <p class="text-sm text-gray-500">{siteConfig.social.phone} · {siteConfig.social.email}</p>
         <div class="flex gap-x-6">
           <a
             href={`mailto:${siteConfig.social.email}`}
@@ -70,29 +71,8 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
               ></path></svg
             >
           </a>
-          <a
-            href={siteConfig.social.twitter}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Twitter"
-            class="text-gray-600 transition-colors duration-300 hover:text-[var(--accent-color)]"
-            style={`--accent-color: ${siteConfig.accentColor}`}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="h-6 w-6"
-              ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
-                d="M4 4l11.733 16h4.267l-11.733 -16z"></path><path
-                d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path></svg
-            >
+          <a href={siteConfig.social.leetcode} target="_blank" rel="noopener noreferrer" aria-label="LeetCode" class="text-gray-600 transition-colors duration-300 hover:text-[var(--accent-color)]" style={`--accent-color: ${siteConfig.accentColor}`}>
+            <span class="text-sm font-bold">LC</span>
           </a>
           <a
             href={siteConfig.social.github}
@@ -128,6 +108,8 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
             class="text-sm text-gray-600 hover:text-gray-800 transition-colors"
             >About</a
           >
+          <a href="#skills" class="text-sm text-gray-600 hover:text-gray-800 transition-colors">Skills</a>
+          <a href="#problem-solving" class="text-sm text-gray-600 hover:text-gray-800 transition-colors">DSA</a>
           {
             hasProjects && (
               <a
@@ -138,16 +120,8 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
               </a>
             )
           }
-          {
-            hasExperience && (
-              <a
-                href="#experience"
-                class="text-sm text-gray-600 hover:text-gray-800 transition-colors"
-              >
-                Experience
-              </a>
-            )
-          }
+          <a href="#research" class="text-sm text-gray-600 hover:text-gray-800 transition-colors">Research</a>
+          <a href="#contact" class="text-sm text-gray-600 hover:text-gray-800 transition-colors">Contact</a>
           {
             hasEducation && (
               <a

@@ -5,11 +5,12 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
 
 {
   hasProjects && (
-    <section id="projects" class="p-8 sm:p-12 md:p-16 lg:p-24">
+    <section id="projects" class="section-shell bg-slate-50">
       <div>
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
           <div class="lg:col-span-4">
-            <h2 class="text-3xl sm:text-4xl md:text-5xl xl:text-7xl font-bold text-gray-900">
+            <p class="eyebrow">04 / selected work</p>
+            <h2 class="section-title">
               Projects
             </h2>
             <div
@@ -90,6 +91,12 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
                             ))}
                           </div>
                         )}
+                        {project.features && (
+                          <ul class="grid gap-2 border-t border-gray-200 pt-4 sm:grid-cols-2">
+                            {project.features.map((feature) => <li class="text-sm leading-relaxed text-gray-600">{feature}</li>)}
+                          </ul>
+                        )}
+                        {project.note && <p class="border-t border-gray-200 pt-4 text-sm font-medium text-teal-700">{project.note}</p>}
                       </div>
                     </Component>
                   </div>
