@@ -22,7 +22,7 @@ export const siteConfig = {
   ],
   projects: [
     {
-      name: "NexusAI – AI Agent Orchestration Platform",
+      name: "NexusAI - AI Agent Orchestration Platform",
       description:
         "AI agent orchestration platform that coordinates specialized agents and external tools through a FastAPI backend.",
       link: "",
@@ -31,13 +31,12 @@ export const siteConfig = {
       note: "Currently extending the platform with authentication, user isolation, and secure storage of tool credentials.",
     },
     {
-      name: "Bank of Wasera – Banking & Payments Platform",
+      name: "MyTodo - Task Management App",
       description:
-        "Banking backend in development, focused on account management, payments, transactions, PostgreSQL, and financial data integrity.",
-      link: "",
-      skills: ["FastAPI", "PostgreSQL", "SQLAlchemy", "Authentication"],
-      features: ["Account management", "Payments and transactions", "Financial data integrity"],
-      note: "In Development: double-entry ledger, idempotency, database transactions, optimistic locking, audit logs, Redis, Celery, and Docker.",
+        "Todo application for creating, organizing, and tracking daily tasks through a clean responsive interface.",
+      link: "https://frontend-mytodo.vercel.app/",
+      skills: ["React", "JavaScript", "Vercel"],
+      features: ["Task creation and management", "Responsive frontend", "Live Vercel deployment"],
     },
     {
       name: "LLM Fine-Tuning SaaS Platform",
@@ -58,7 +57,7 @@ export const siteConfig = {
   problemSolving: { solved: "200+", easy: 75, medium: 105, hard: 20, submissions: 651, acceptance: "59.45%", link: "https://leetcode.com/u/LzLJWzHwdb/" },
   publication: {
     title: "Stabilizing GPT-2 Training via an Additional Post-Normalization Layer",
-    venue: "Published Research Paper — ICST 2026, IIT Patna",
+    venue: "Published Research Paper - ICST 2026, IIT Patna",
     description: "Research work focused on modifying the GPT-2 Transformer architecture by introducing an additional post-normalization layer and evaluating its effect on training stability.",
   },
   coursework: ["Data Structures & Algorithms", "Object-Oriented Programming", "Database Management Systems", "Operating Systems", "Computer Networks", "Design and Analysis of Algorithms", "Machine Learning", "Deep Learning", "Generative AI", "Agentic AI"],
