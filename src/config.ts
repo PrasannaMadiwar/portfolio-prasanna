@@ -54,7 +54,7 @@ export const siteConfig = {
       features: ["Multi-head self-attention", "Causal masking", "Positional embeddings", "Transformer blocks", "Training and validation loss evaluation", "Training stability analysis"],
     },
   ],
-  problemSolving: { solved: "200+", easy: 75, medium: 105, hard: 20, submissions: 651, acceptance: "59.45%", link: "https://leetcode.com/u/LzLJWzHwdb/" },
+  problemSolving: { solved: 226, easy: 84, medium: 121, hard: 21, submissions: 1458, acceptance: "59.95%", link: "https://leetcode.com/u/LzLJWzHwdb/" },
   publication: {
     title: "Stabilizing GPT-2 Training via an Additional Post-Normalization Layer",
     venue: "Published Research Paper - ICST 2026, IIT Patna",

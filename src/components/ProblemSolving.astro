@@ -1,23 +1,121 @@
 ---
 import { siteConfig } from "../config";
+
 const stats = siteConfig.problemSolving;
+const username = new URL(stats.link).pathname.split("/").filter(Boolean).pop() ?? "";
 ---
 
-<section id="problem-solving" class="section-shell bg-teal-50">
+<section
+  id="problem-solving"
+  class="section-shell bg-teal-50"
+  data-leetcode-section
+  data-leetcode-username={username}
+>
   <div class="section-grid">
     <div>
       <p class="eyebrow">03 / practice</p>
       <h2 class="section-title">Problem Solving</h2>
-      <p class="mt-6 max-w-xl text-lg leading-relaxed text-slate-600">200+ LeetCode problems solved, with a focus on Medium and Hard-level Data Structures & Algorithms problems.</p>
-      <a class="inline-link mt-6" href={stats.link} target="_blank" rel="noopener noreferrer">View LeetCode profile <span aria-hidden="true">↗</span></a>
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-slate-600">
+        Live LeetCode progress for Data Structures & Algorithms practice, with emphasis on Medium and Hard problems.
+      </p>
+      <div class="mt-4 text-sm font-semibold text-teal-800" data-leetcode-status>
+        Showing saved stats
+      </div>
+      <a class="inline-link mt-6" href={stats.link} target="_blank" rel="noopener noreferrer">
+        View LeetCode profile <span aria-hidden="true">-></span>
+      </a>
     </div>
+
     <div class="grid grid-cols-2 gap-px overflow-hidden border border-teal-200 bg-teal-200 sm:grid-cols-4">
-      <div class="stat stat-featured col-span-2 sm:col-span-2"><strong>{stats.solved}</strong><span>Problems solved</span></div>
-      <div class="stat"><strong>{stats.medium}</strong><span>Medium</span></div>
-      <div class="stat"><strong>{stats.hard}</strong><span>Hard</span></div>
-      <div class="stat"><strong>{stats.easy}</strong><span>Easy</span></div>
-      <div class="stat"><strong>{stats.submissions}</strong><span>Submissions</span></div>
-      <div class="stat col-span-2"><strong>{stats.acceptance}</strong><span>Acceptance</span></div>
+      <div class="stat stat-featured col-span-2 sm:col-span-2">
+        <strong data-leetcode-stat="solved">{stats.solved}</strong>
+        <span>Problems solved</span>
+      </div>
+      <div class="stat">
+        <strong data-leetcode-stat="medium">{stats.medium}</strong>
+        <span>Medium</span>
+      </div>
+      <div class="stat">
+        <strong data-leetcode-stat="hard">{stats.hard}</strong>
+        <span>Hard</span>
+      </div>
+      <div class="stat">
+        <strong data-leetcode-stat="easy">{stats.easy}</strong>
+        <span>Easy</span>
+      </div>
+      <div class="stat">
+        <strong data-leetcode-stat="submissions">{stats.submissions}</strong>
+        <span>Submissions</span>
+      </div>
+      <div class="stat col-span-2">
+        <strong data-leetcode-stat="acceptance">{stats.acceptance}</strong>
+        <span>Acceptance</span>
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  const section = document.querySelector("[data-leetcode-section]");
+  const username = section?.getAttribute("data-leetcode-username");
+  const status = section?.querySelector("[data-leetcode-status]");
+
+  const setStat = (key, value) => {
+    const element = section?.querySelector(`[data-leetcode-stat="${key}"]`);
+
+    if (element && value !== undefined && value !== null && value !== "") {
+      element.textContent = String(value);
+    }
+  };
+
+  const formatNumber = (value) =>
+    typeof value === "number" ? value.toLocaleString("en-IN") : value;
+
+  const loadLeetCodeStats = async () => {
+    if (!username) return;
+
+    try {
+      const [statsResponse, heatmapResponse] = await Promise.all([
+        fetch(`https://leetcode-stats.tashif.codes/${username}/stats`, {
+          headers: { Accept: "application/json" },
+        }),
+        fetch(`https://leetcode-stats.tashif.codes/${username}/heatmap`, {
+          headers: { Accept: "application/json" },
+        }),
+      ]);
+
+      if (!statsResponse.ok) throw new Error("LeetCode stats request failed");
+
+      const statsPayload = await statsResponse.json();
+      const heatmapPayload = heatmapResponse.ok ? await heatmapResponse.json() : null;
+      const liveStats = statsPayload?.data;
+      const heatmap = heatmapPayload?.data;
+
+      if (!liveStats) throw new Error("LeetCode stats response was empty");
+
+      setStat("solved", formatNumber(liveStats.totalSolved));
+      setStat("easy", formatNumber(liveStats.byDifficulty?.easy));
+      setStat("medium", formatNumber(liveStats.byDifficulty?.medium));
+      setStat("hard", formatNumber(liveStats.byDifficulty?.hard));
+      setStat("submissions", formatNumber(heatmap?.totalSubmissions));
+      setStat(
+        "acceptance",
+        typeof liveStats.acceptanceRate === "number"
+          ? `${liveStats.acceptanceRate.toFixed(2)}%`
+          : liveStats.acceptanceRate
+      );
+
+      if (status) {
+        status.textContent = `Live stats updated ${new Date().toLocaleDateString("en-IN", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        })}`;
+      }
+    } catch (error) {
+      if (status) status.textContent = "Showing saved stats";
+    }
+  };
+
+  loadLeetCodeStats();
+</script>
