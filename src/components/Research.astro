@@ -1,17 +1,50 @@
 ---
 import { siteConfig } from "../config";
+
+const achievements = siteConfig.achievements ?? [
+  {
+    title: siteConfig.publication.title,
+    category: "Research Paper",
+    venue: siteConfig.publication.venue,
+    description: siteConfig.publication.description,
+    badge: "Published Research",
+    icon: "paper",
+  },
+];
 ---
 
-<section id="research" class="section-shell">
+<section id="research" class="section-shell bg-white">
   <div class="section-grid">
     <div>
-      <p class="eyebrow">05 / publication</p>
-      <h2 class="section-title">Research Publication</h2>
+      <p class="eyebrow">05 / honors & leadership</p>
+      <h2 class="section-title">Achievements & Research</h2>
+      <p class="mt-4 text-slate-600 leading-relaxed text-sm sm:text-base">
+        Published research, patented innovation, competitive technical exhibition awards, and campus leadership.
+      </p>
     </div>
-    <article class="publication border-l-4 border-teal-600 pl-6 sm:pl-8">
-      <p class="text-sm font-semibold uppercase tracking-[0.14em] text-teal-700">{siteConfig.publication.venue}</p>
-      <h3 class="mt-4 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">{siteConfig.publication.title}</h3>
-      <p class="mt-4 max-w-2xl text-lg leading-relaxed text-slate-600">{siteConfig.publication.description}</p>
-    </article>
+
+    <div class="space-y-6">
+      {achievements.map((item, index) => (
+        <article class="p-6 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white hover:border-teal-300 hover:shadow-md transition-all duration-300">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <span class="text-xs font-semibold font-mono uppercase tracking-wider text-teal-800">
+              {item.venue}
+            </span>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-teal-100 text-teal-800 border border-teal-200">
+              {item.badge}
+            </span>
+          </div>
+
+          <h3 class="mt-3 text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
+            {item.title}
+          </h3>
+
+          <p class="mt-2.5 text-base leading-relaxed text-slate-600">
+            {item.description}
+          </p>
+        </article>
+      ))}
+    </div>
   </div>
 </section>
+

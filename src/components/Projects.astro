@@ -61,12 +61,20 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
 
                       <div class="space-y-4">
                         <div>
-                          <span
-                            class="text-sm font-mono"
-                            style={{ color: siteConfig.accentColor }}
-                          >
-                            0{index + 1}
-                          </span>
+                          <div class="flex items-center gap-3">
+                            <span
+                              class="text-sm font-mono"
+                              style={{ color: siteConfig.accentColor }}
+                            >
+                              0{index + 1}
+                            </span>
+                            {project.link && (
+                              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                Live App
+                              </span>
+                            )}
+                          </div>
                           <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-1">
                             {project.name}
                           </h3>
@@ -92,8 +100,13 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
                           </div>
                         )}
                         {project.features && (
-                          <ul class="grid gap-2 border-t border-gray-200 pt-4 sm:grid-cols-2">
-                            {project.features.map((feature) => <li class="text-sm leading-relaxed text-gray-600">{feature}</li>)}
+                          <ul class="space-y-2.5 border-t border-gray-200 pt-4">
+                            {project.features.map((feature) => (
+                              <li class="flex items-start text-sm leading-relaxed text-gray-600 gap-2.5">
+                                <span class="inline-block w-1.5 h-1.5 rounded-full bg-teal-600 mt-2 shrink-0" />
+                                <span>{feature}</span>
+                              </li>
+                            ))}
                           </ul>
                         )}
                         {project.note && <p class="border-t border-gray-200 pt-4 text-sm font-medium text-teal-700">{project.note}</p>}

@@ -11,50 +11,116 @@ export const siteConfig = {
     leetcode: "https://leetcode.com/u/LzLJWzHwdb/",
   },
   aboutMe:
-    "I am pursuing a B.Tech in Artificial Intelligence and Machine Learning at Vishwakarma Institute of Technology, Pune, with a current CGPA of 9.33. After completing a Diploma in Electronics and Tele-Communication from Ballarpur Institute of Technology with 94.41%, I transitioned from electronics and embedded systems toward software engineering, backend development, and AI/LLM systems. I enjoy building backend applications, APIs, AI-powered systems, and production-oriented software while strengthening Data Structures & Algorithms and core Computer Science fundamentals.",
+    "Software Developer focused on backend engineering and AI-powered systems, with hands-on experience building and deploying scalable RESTful applications using Python, FastAPI, SQLAlchemy, PostgreSQL, and Docker. Experienced in developing stateful multi-agent architectures and LLM platforms using PyTorch, LangGraph, and LangChain, with practical experience in cloud deployment, asynchronous processing (Celery, Redis), and GPU orchestration (RunPod). Currently pursuing a B.Tech in Artificial Intelligence & Machine Learning at Vishwakarma Institute of Technology, Pune (CGPA: 9.33/10) after completing a Diploma in Electronics & Tele-Communication at Ballarpur Institute of Technology with 94.41%. Strong foundation in Data Structures & Algorithms, Object-Oriented Programming, DBMS, Operating Systems, and Computer Networks, with a keen focus on software design principles (SOLID, Low-Level Design).",
   skillGroups: [
-    { name: "Programming", items: ["Python", "Java", "SQL"] },
-    { name: "Computer Science", items: ["Data Structures & Algorithms", "Object-Oriented Programming", "Database Management Systems", "Operating Systems", "Computer Networks"] },
+    { name: "Languages", items: ["Python", "SQL"] },
     { name: "Backend", items: ["FastAPI", "REST APIs", "SQLAlchemy", "Pydantic", "JWT", "OAuth2", "Async Programming"] },
-    { name: "Databases", items: ["PostgreSQL", "SQLite"] },
-    { name: "Testing & Tools", items: ["PyTest", "Git", "GitHub", "Docker"] },
-    { name: "AI / Generative AI", items: ["PyTorch", "LangChain", "LangGraph", "DeepAgents", "RAG", "LLMs", "MCP", "Transformer Architectures", "Fine-Tuning", "Prompt Engineering"] },
+    { name: "Databases", items: ["PostgreSQL", "MySQL", "SQLite"] },
+    { name: "Cloud & DevOps", items: ["Docker", "Render", "RunPod", "Git", "Daytona", "GitHub", "CI/CD"] },
+    { name: "AI & Generative AI", items: ["PyTorch", "Transformers", "LLMs", "LangChain", "LangGraph", "RAG", "MCP", "Agentic AI"] },
+    { name: "CS Fundamentals", items: ["Data Structures & Algorithms", "OOP", "DBMS", "Operating Systems", "Computer Networks"] },
+    { name: "Software Engineering", items: ["SOLID", "DRY", "KISS", "YAGNI", "UML/Class Diagrams"] },
   ],
   projects: [
     {
-      name: "NexusAI - AI Agent Orchestration Platform",
+      name: "NexusAI - Multi-Tenant AI Agent Orchestration Platform",
       description:
-        "AI agent orchestration platform that coordinates specialized agents and external tools through a FastAPI backend.",
-      link: "",
-      skills: ["FastAPI", "Python", "LangGraph", "LangChain", "DeepAgents"],
-      features: ["Modular FastAPI backend", "Stateful multi-agent orchestration using LangGraph", "Asynchronous task execution", "Tool routing", "Gmail and Calendar integrations", "Secure code execution workflows"],
-      note: "Currently extending the platform with authentication, user isolation, and secure storage of tool credentials.",
-    },
-    {
-      name: "MyTodo - Task Management App",
-      description:
-        "Todo application for creating, organizing, and tracking daily tasks through a clean responsive interface.",
-      link: "https://frontend-mytodo.vercel.app/",
-      skills: ["React", "JavaScript", "Vercel"],
-      features: ["Task creation and management", "Responsive frontend", "Live Vercel deployment"],
+        "Production-grade AI agent orchestration platform that coordinates specialized autonomous agents and external integrations through a multi-tenant FastAPI backend.",
+      link: "https://nexusai-hub.onrender.com",
+      github: "https://github.com/PrasannaMadiwar/NexusAI-Central-hub-connecting-tools-and-reasoning",
+      skills: ["FastAPI", "LangGraph", "DeepAgents", "PostgreSQL", "MongoDB", "Docker"],
+      features: [
+        "Engineered a multi-tenant FastAPI backend exposing 14 REST endpoints for authentication, agent execution, conversation threads, user profiles, and encrypted service-credential management.",
+        "Built a stateful multi-agent orchestration layer using LangGraph and DeepAgents, integrating specialized workflows for Gmail, Google Calendar, Google Meet transcript analysis, web search, and sandboxed Python execution.",
+        "Implemented JWT-based user isolation, SQLAlchemy-backed PostgreSQL persistence for threads/messages, and an encrypted MongoDB credential vault.",
+        "Containerized with Docker and deployed on Render with automated CI/CD pipelines and health checks.",
+      ],
     },
     {
       name: "LLM Fine-Tuning SaaS Platform",
       description:
-        "Backend platform for preparing datasets and managing LLM fine-tuning jobs with RunPod cloud GPU integration.",
-      link: "",
-      skills: ["FastAPI", "Python", "PostgreSQL", "PyTorch", "RunPod"],
-      features: ["Automated dataset preparation and standardization", "Instruction-tuning JSONL conversion", "Training job management", "Checkpoint, metrics, logs, and model artifact handling"],
+        "End-to-end backend platform for preparing datasets, managing instruction tuning jobs, and orchestrating cloud GPUs with RunPod.",
+      link: "https://github.com/PrasannaMadiwar/LLM_FineTuner",
+      github: "https://github.com/PrasannaMadiwar/LLM_FineTuner",
+      skills: ["FastAPI", "PostgreSQL", "Redis", "Celery", "Docker", "RunPod", "PyTorch"],
+      features: [
+        "Engineered an end-to-end LLM fine-tuning platform using a FastAPI + Celery architecture with PostgreSQL and Redis for dataset processing, training orchestration, and model artifact management.",
+        "Built a dataset intelligence pipeline with 5 REST endpoints for dataset discovery, metadata extraction, semantic schema mapping, validation, and normalization into instruction-tuning JSONL format with caching and history.",
+        "Implemented a provider-agnostic GPU orchestration layer with 8 authenticated API endpoints, integrating RunPod for GPU provisioning, remote file transfer, command execution, training lifecycle management, logs, health checks, and model output handling.",
+      ],
     },
     {
-      name: "GPT-2 Architecture Modification",
-      description: "Research-oriented modification of the GPT-2 Transformer architecture by introducing an additional post-LayerNorm layer and evaluating training behavior.",
-      link: "",
-      skills: ["PyTorch", "Python"],
-      features: ["Multi-head self-attention", "Causal masking", "Positional embeddings", "Transformer blocks", "Training and validation loss evaluation", "Training stability analysis"],
+      name: "GPT-2 Architecture Modification & Stability Research",
+      description:
+        "Research-oriented modification of the GPT-2 Transformer architecture by introducing an additional post-LayerNorm layer to stabilize training dynamics and evaluate loss convergence.",
+      link: "https://github.com/PrasannaMadiwar",
+      skills: ["PyTorch", "Python", "Transformers", "Research"],
+      features: [
+        "Implemented GPT-2 Transformer architecture from scratch: multi-head self-attention, causal masking, positional embeddings, and custom transformer blocks.",
+        "Designed and evaluated an additional post-normalization layer to eliminate gradient anomalies and improve convergence during training.",
+        "Authored and presented original research at ICST 2026, IIT Patna.",
+      ],
+    },
+    {
+      name: "MyTodo - Task Management App",
+      description:
+        "Full-stack task management application for creating, organizing, and tracking daily workflows through a clean responsive user interface.",
+      link: "https://frontend-mytodo.vercel.app/",
+      skills: ["React", "JavaScript", "Vercel", "REST APIs"],
+      features: [
+        "Responsive task creation, status categorization, and priority management.",
+        "Clean component architecture deployed live to production on Vercel.",
+      ],
     },
   ],
-  problemSolving: { solved: 226, easy: 84, medium: 121, hard: 21, submissions: 1458, acceptance: "59.95%", link: "https://leetcode.com/u/LzLJWzHwdb/" },
+  problemSolving: {
+    solved: 261,
+    easy: 93,
+    medium: 143,
+    hard: 25,
+    ranking: 616281,
+    submissions: 846,
+    acceptance: "60.52%",
+    link: "https://leetcode.com/u/LzLJWzHwdb/",
+  },
+  achievements: [
+    {
+      title: "Stabilizing GPT-2 Training via an Additional Post-Normalization Layer",
+      category: "Research Paper",
+      venue: "ICST 2026, IIT Patna",
+      description:
+        "Authored and presented research investigating architectural modifications to the GPT-2 Transformer, demonstrating improved stability and convergence through an additional post-normalization layer.",
+      badge: "Published Research",
+      icon: "paper",
+    },
+    {
+      title: "Automated Solar Panel Cleaning Robot System",
+      category: "Patent Application",
+      venue: "Published Patent Application",
+      description:
+        "Published a patent application for an autonomous robotic cleaning mechanism designed to maintain optimal solar panel efficiency; currently pending further approval.",
+      badge: "Patent Published",
+      icon: "patent",
+    },
+    {
+      title: "IoT-Based Smart Agriculture Monitoring & Control System",
+      category: "Project Exhibition Winner",
+      venue: "Government College of Engineering, Chandrapur",
+      description:
+        "Won 1st prize in project exhibition for developing an end-to-end IoT sensor and actuation system that automates irrigation and climate tracking for precision agriculture.",
+      badge: "1st Place Winner",
+      icon: "trophy",
+    },
+    {
+      title: "President - BIT Student Association",
+      category: "Leadership & Governance",
+      venue: "Ballarpur Institute of Technology",
+      description:
+        "Elected President of the Student Association; spearheaded campus-wide student initiatives, managed organizational operations, and coordinated technical symposiums.",
+      badge: "Leadership",
+      icon: "leadership",
+    },
+  ],
   publication: {
     title: "Stabilizing GPT-2 Training via an Additional Post-Normalization Layer",
     venue: "Published Research Paper - ICST 2026, IIT Patna",
