@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Prasanna Madiwar",
-  title: "Software Developer | Backend Engineering | AI/LLM Systems",
-  description: "Software developer building backend systems and AI-powered applications.",
+  title: "Backend Engineer | AI Systems | Seeking SDE Internship (Summer 2027)",
+  description: "B.Tech AI/ML student building backend services for AI workloads: multi-tenant agent APIs, sandboxed code execution, and GPU job orchestration.",
   accentColor: "#0f766e",
   social: {
     email: "prasannamadiwar71@gmail.com",
@@ -9,51 +9,63 @@ export const siteConfig = {
     linkedin: "https://www.linkedin.com/in/prasanna-madiwar-507462318/",
     github: "https://github.com/PrasannaMadiwar",
     leetcode: "https://leetcode.com/u/LzLJWzHwdb/",
+    takeuforward: "https://takeuforward.org/profile/prasannamadiwar",
+    codechef: "https://www.codechef.com/users/prasanna_m146",
   },
   aboutMe:
-    "Software Developer focused on backend engineering and AI-powered systems, with hands-on experience building and deploying scalable RESTful applications using Python, FastAPI, SQLAlchemy, PostgreSQL, and Docker. Experienced in developing stateful multi-agent architectures and LLM platforms using PyTorch, LangGraph, and LangChain, with practical experience in cloud deployment, asynchronous processing (Celery, Redis), and GPU orchestration (RunPod). Currently pursuing a B.Tech in Artificial Intelligence & Machine Learning at Vishwakarma Institute of Technology, Pune (CGPA: 9.33/10) after completing a Diploma in Electronics & Tele-Communication at Ballarpur Institute of Technology with 94.41%. Strong foundation in Data Structures & Algorithms, Object-Oriented Programming, DBMS, Operating Systems, and Computer Networks, with a keen focus on software design principles (SOLID, Low-Level Design).",
+    "B.Tech AI/ML student at Vishwakarma Institute of Technology, Pune (CGPA 9.33/10) who builds backend services for AI workloads: multi-tenant agent APIs, sandboxed code execution, and GPU job orchestration. I work mainly in Python with FastAPI, Celery, PostgreSQL, MongoDB, Redis, and Docker. My projects have 350+ automated tests and CI behind them, and per-user access is enforced on every job, thread, and credential route. I presented GPT-2 training-stability research at ICST 2026, IIT Patna. Before VIT I completed a Diploma in Electronics & Tele-Communication at Ballarpur Institute of Technology with 94.41%. I'm looking for an SDE internship for Summer 2027.",
   skillGroups: [
-    { name: "Languages", items: ["Python", "SQL"] },
-    { name: "Backend", items: ["FastAPI", "REST APIs", "SQLAlchemy", "Pydantic", "JWT", "OAuth2", "Async Programming"] },
-    { name: "Databases", items: ["PostgreSQL", "MySQL", "SQLite"] },
-    { name: "Cloud & DevOps", items: ["Docker", "Render", "RunPod", "Git", "Daytona", "GitHub", "CI/CD"] },
-    { name: "AI & Generative AI", items: ["PyTorch", "Transformers", "LLMs", "LangChain", "LangGraph", "RAG", "MCP", "Agentic AI"] },
-    { name: "CS Fundamentals", items: ["Data Structures & Algorithms", "OOP", "DBMS", "Operating Systems", "Computer Networks"] },
-    { name: "Software Engineering", items: ["SOLID", "DRY", "KISS", "YAGNI", "UML/Class Diagrams"] },
+    { name: "Languages", items: ["Python (primary)", "Java", "SQL"] },
+    { name: "Backend Services", items: ["FastAPI", "REST APIs", "Async I/O", "Celery", "JWT", "OAuth2", "SQLAlchemy", "Pydantic"] },
+    { name: "Data", items: ["PostgreSQL", "MongoDB", "Redis", "SQLite"] },
+    { name: "Engineering Practices", items: ["pytest", "GitHub Actions CI", "Health Checks & Structured Logging", "Design Docs", "Docker", "Git"] },
+    { name: "AI Systems", items: ["LLM Fine-Tuning", "LangGraph Agent Orchestration", "PyTorch", "Hugging Face Transformers", "LangChain"] },
+    { name: "Fundamentals", items: ["Object-Oriented Programming", "SOLID", "Data Structures & Algorithms", "DBMS", "Operating Systems", "Networks"] },
   ],
   projects: [
     {
-      name: "NexusAI - Multi-Tenant AI Agent Orchestration Platform",
+      name: "NexusLLMFineTuner - LLM Fine-Tuning Backend",
       description:
-        "Production-grade AI agent orchestration platform that coordinates specialized autonomous agents and external integrations through a multi-tenant FastAPI backend.",
-      link: "https://nexusai-hub.onrender.com",
-      github: "https://github.com/PrasannaMadiwar/NexusAI-Central-hub-connecting-tools-and-reasoning",
-      skills: ["FastAPI", "LangGraph", "DeepAgents", "PostgreSQL", "MongoDB", "Docker"],
+        "Fine-tuning backend that takes a Hugging Face dataset through validation, chat-format mapping, and GPU training jobs behind a per-user job state machine.",
+      link: "https://github.com/PrasannaMadiwar/LLM_FineTuner",
+      github: "https://github.com/PrasannaMadiwar/LLM_FineTuner",
+      skills: ["FastAPI", "Celery", "Redis", "PostgreSQL", "Docker", "GitHub Actions"],
       features: [
-        "Engineered a multi-tenant FastAPI backend exposing 14 REST endpoints for authentication, agent execution, conversation threads, user profiles, and encrypted service-credential management.",
-        "Built a stateful multi-agent orchestration layer using LangGraph and DeepAgents, integrating specialized workflows for Gmail, Google Calendar, Google Meet transcript analysis, web search, and sandboxed Python execution.",
-        "Implemented JWT-based user isolation, SQLAlchemy-backed PostgreSQL persistence for threads/messages, and an encrypted MongoDB credential vault.",
-        "Containerized with Docker and deployed on Render with automated CI/CD pipelines and health checks.",
+        "Engineered a fine-tuning backend (36 REST routes, Celery worker) with a 13-state job state machine; per-user JWT checks return 403/404 on every cross-user request.",
+        "Implemented a Hugging Face dataset pipeline that previews rows through the Dataset Viewer API with no full download, maps columns to chat format via a schema-validated LLM call cached in PostgreSQL, and blocks malformed data with 7 validation checks.",
+        "Designed a provider-agnostic GPUProvider interface (7-state lifecycle) and a 13-endpoint runtime agent that restricts GPU pods to 4 approved templates and an allowlist of commands.",
+        "Fine-tuned Qwen2.5-1.5B on 2,000 examples (250 steps, about 6 min on a local RTX GPU) and exported a 73.9 MB adapter.",
+        "Wrote 329 pytest tests (API 73%, agent 80% coverage) covering every job-state transition with a fake GPU provider, and gated merges with GitHub Actions CI.",
       ],
     },
     {
-      name: "LLM Fine-Tuning SaaS Platform",
+      name: "NexusAI - Multi-Tenant Agent Backend",
       description:
-        "End-to-end backend platform for preparing datasets, managing instruction tuning jobs, and orchestrating cloud GPUs with RunPod.",
-      link: "https://github.com/PrasannaMadiwar/LLM_FineTuner",
-      github: "https://github.com/PrasannaMadiwar/LLM_FineTuner",
-      skills: ["FastAPI", "PostgreSQL", "Redis", "Celery", "Docker", "RunPod", "PyTorch"],
+        "Multi-tenant agent backend that orchestrates Gmail, Calendar, Meet/Zoom, and web-search subagents in LangGraph, with isolated tenants and an encrypted credential vault.",
+      link: "https://nexusai-hub.onrender.com",
+      live: true,
+      github: "https://github.com/PrasannaMadiwar/NexusAI-Central-hub-connecting-tools-and-reasoning",
+      skills: ["FastAPI", "LangGraph", "PostgreSQL", "MongoDB", "Docker", "GitHub Actions"],
       features: [
-        "Engineered an end-to-end LLM fine-tuning platform using a FastAPI + Celery architecture with PostgreSQL and Redis for dataset processing, training orchestration, and model artifact management.",
-        "Built a dataset intelligence pipeline with 5 REST endpoints for dataset discovery, metadata extraction, semantic schema mapping, validation, and normalization into instruction-tuning JSONL format with caching and history.",
-        "Implemented a provider-agnostic GPU orchestration layer with 8 authenticated API endpoints, integrating RunPod for GPU provisioning, remote file transfer, command execution, training lifecycle management, logs, health checks, and model output handling.",
+        "Built a multi-tenant agent backend (5 FastAPI routers; repositories, services, dependency injection) that orchestrates 4 subagents (Gmail, Calendar, Meet/Zoom, web search) in LangGraph, with state checkpointed in PostgreSQL.",
+        "Isolated tenants with JWT auth, PBKDF2-SHA256 password hashing, and an encrypted per-user credential vault on MongoDB Atlas, verified by 7 tenant-isolation tests.",
+        "Tested the service with 23 pytest tests (67% coverage) and added a CI coverage gate, a /health check on PostgreSQL and MongoDB, and structured JSON logs with request IDs.",
       ],
+    },
+    {
+      name: "NexusCode Judge - Sandboxed Code Judge",
+      description:
+        "Online-judge backend that runs each submission in an isolated Docker container and returns a verdict.",
+      skills: ["FastAPI", "Docker", "Python", "PostgreSQL", "MongoDB"],
+      features: [
+        "Building a Python judging pipeline that runs each submission in an isolated Docker container against per-testcase expected output, returning verdicts with error handling, runtime measurement, and time and memory limits.",
+      ],
+      note: "In progress (Oct 2026 - present)",
     },
     {
       name: "GPT-2 Architecture Modification & Stability Research",
       description:
         "Research-oriented modification of the GPT-2 Transformer architecture by introducing an additional post-LayerNorm layer to stabilize training dynamics and evaluate loss convergence.",
-      link: "https://github.com/PrasannaMadiwar",
       skills: ["PyTorch", "Python", "Transformers", "Research"],
       features: [
         "Implemented GPT-2 Transformer architecture from scratch: multi-head self-attention, causal masking, positional embeddings, and custom transformer blocks.",
@@ -66,6 +78,7 @@ export const siteConfig = {
       description:
         "Full-stack task management application for creating, organizing, and tracking daily workflows through a clean responsive user interface.",
       link: "https://frontend-mytodo.vercel.app/",
+      live: true,
       skills: ["React", "JavaScript", "Vercel", "REST APIs"],
       features: [
         "Responsive task creation, status categorization, and priority management.",
@@ -74,14 +87,29 @@ export const siteConfig = {
     },
   ],
   problemSolving: {
-    solved: 261,
-    easy: 93,
-    medium: 143,
-    hard: 25,
-    ranking: 616281,
-    submissions: 846,
+    solved: 352,
+    easy: 116,
+    medium: 192,
+    hard: 44,
+    ranking: 405255,
+    submissions: 1157,
     acceptance: "60.52%",
     link: "https://leetcode.com/u/LzLJWzHwdb/",
+    platforms: [
+      {
+        name: "TakeUForward",
+        link: "https://takeuforward.org/profile/prasannamadiwar",
+        stats: [{ value: "460+", label: "Problems solved" }],
+      },
+      {
+        name: "CodeChef",
+        link: "https://www.codechef.com/users/prasanna_m146",
+        stats: [
+          { value: "1600+", label: "DSA rating" },
+          { value: "1000+", label: "Contest rating" },
+        ],
+      },
+    ],
   },
   achievements: [
     {
@@ -116,7 +144,7 @@ export const siteConfig = {
       category: "Leadership & Governance",
       venue: "Ballarpur Institute of Technology",
       description:
-        "Elected President of the Student Association; spearheaded campus-wide student initiatives, managed organizational operations, and coordinated technical symposiums.",
+        "Elected President of the Student Association; led 5+ campus activities engaging 2,000+ students, managed organizational operations, and coordinated technical symposiums.",
       badge: "Leadership",
       icon: "leadership",
     },
@@ -132,9 +160,9 @@ export const siteConfig = {
     {
       school: "Vishwakarma Institute of Technology, Pune",
       degree: "B.Tech in Artificial Intelligence and Machine Learning",
-      dateRange: "Aug 2025 - Jun 2028 (Pursuing)",
+      dateRange: "Aug 2025 - Jun 2028 (Expected)",
       achievements: [
-        "CGPA: 9.33",
+        "CGPA: 9.33/10",
       ],
     },
     {

@@ -74,6 +74,16 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
           <a href={siteConfig.social.leetcode} target="_blank" rel="noopener noreferrer" aria-label="LeetCode" class="text-gray-600 transition-colors duration-300 hover:text-[var(--accent-color)]" style={`--accent-color: ${siteConfig.accentColor}`}>
             <span class="text-sm font-bold">LC</span>
           </a>
+          {siteConfig.social.takeuforward && (
+            <a href={siteConfig.social.takeuforward} target="_blank" rel="noopener noreferrer" aria-label="TakeUForward" class="text-gray-600 transition-colors duration-300 hover:text-[var(--accent-color)]" style={`--accent-color: ${siteConfig.accentColor}`}>
+              <span class="text-sm font-bold">TUF</span>
+            </a>
+          )}
+          {siteConfig.social.codechef && (
+            <a href={siteConfig.social.codechef} target="_blank" rel="noopener noreferrer" aria-label="CodeChef" class="text-gray-600 transition-colors duration-300 hover:text-[var(--accent-color)]" style={`--accent-color: ${siteConfig.accentColor}`}>
+              <span class="text-sm font-bold">CC</span>
+            </a>
+          )}
           <a
             href={siteConfig.social.github}
             target="_blank"

@@ -32,7 +32,7 @@ const initialRecent = [
       <p class="eyebrow">03 / practice</p>
       <h2 class="section-title">Problem Solving</h2>
       <p class="mt-6 max-w-xl text-lg leading-relaxed text-slate-600">
-        Live LeetCode progress for Data Structures & Algorithms practice, with active focus on Medium and Hard algorithmic problem solving.
+        Data Structures & Algorithms practice across LeetCode, TakeUForward, and CodeChef, with live LeetCode progress and active focus on Medium and Hard problems.
       </p>
 
       <!-- Live Sync Status Indicator -->
@@ -54,6 +54,32 @@ const initialRecent = [
         <span>View LeetCode Profile</span>
         <span class="transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
       </a>
+
+      {stats.platforms && stats.platforms.length > 0 && (
+        <div class="mt-8 grid gap-3 sm:grid-cols-2">
+          {stats.platforms.map((platform) => (
+            <a
+              href={platform.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group block rounded-xl border border-teal-200 bg-white p-4 shadow-xs transition-all duration-300 hover:border-teal-400 hover:shadow-md"
+            >
+              <div class="flex items-center justify-between text-xs font-mono font-semibold uppercase tracking-wider text-teal-800">
+                <span>{platform.name}</span>
+                <span class="transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
+              </div>
+              <div class="mt-3 flex flex-wrap gap-x-6 gap-y-2">
+                {platform.stats.map((item) => (
+                  <div class="flex flex-col">
+                    <strong class="text-2xl font-bold text-slate-900">{item.value}</strong>
+                    <span class="text-xs text-slate-500">{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
     </div>
 
     <div class="space-y-6">
