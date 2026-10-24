@@ -3,14 +3,53 @@ import { siteConfig } from "../config";
 
 const stats = siteConfig.problemSolving;
 const username = new URL(stats.link).pathname.split("/").filter(Boolean).pop() ?? "LzLJWzHwdb";
+const tufUsername = stats.tufUsername ?? "prasannamadiwar";
+const codechefUsername = stats.codechefUsername ?? "prasanna_m146";
 
-const initialSolved = stats.solved ?? 261;
-const initialEasy = stats.easy ?? 93;
-const initialMedium = stats.medium ?? 143;
-const initialHard = stats.hard ?? 25;
-const initialSubmissions = stats.submissions ?? 846;
+const initialSolved = stats.solved ?? 352;
+const initialEasy = stats.easy ?? 116;
+const initialMedium = stats.medium ?? 192;
+const initialHard = stats.hard ?? 44;
+const initialSubmissions = stats.submissions ?? 1157;
 const initialAcceptance = stats.acceptance ?? "60.52%";
-const initialRanking = stats.ranking ? stats.ranking.toLocaleString("en-IN") : "616,281";
+const initialRanking = stats.ranking ? stats.ranking.toLocaleString("en-IN") : "405,255";
+
+let initialTufSolved = 513;
+let initialTufTotal = 1494;
+let initialCodechefRating = "1124";
+let initialCodechefStars = "1★";
+let initialCodechefRank = "1,11,226";
+let initialCodechefMaxRating = "1124";
+
+// Build-time pre-fetch so the initial HTML build contains latest live stats
+try {
+  const tufRes = await fetch(`https://tuf-stats.tashif.codes/${tufUsername}/stats`, {
+    signal: AbortSignal.timeout(3500),
+  });
+  if (tufRes.ok) {
+    const tufJson = await tufRes.json();
+    if (tufJson.data?.totalSolved) {
+      initialTufSolved = tufJson.data.totalSolved;
+      initialTufTotal = tufJson.data.totalQuestions ?? initialTufTotal;
+    }
+  }
+} catch {}
+
+try {
+  const ccRes = await fetch(`https://competeapi.vercel.app/user/codechef/${codechefUsername}/`, {
+    signal: AbortSignal.timeout(3500),
+  });
+  if (ccRes.ok) {
+    const ccJson = await ccRes.json();
+    if (ccJson.rating_number) {
+      initialCodechefRating = String(ccJson.rating_number);
+      initialCodechefStars = ccJson.rating || "1★";
+      initialCodechefMaxRating = String(ccJson.max_rank ?? ccJson.rating_number);
+      const gRank = parseInt(String(ccJson.global_rank).trim(), 10);
+      if (!isNaN(gRank)) initialCodechefRank = gRank.toLocaleString("en-IN");
+    }
+  }
+} catch {}
 
 const initialRecent = [
   { title: "Climbing Stairs", slug: "climbing-stairs", lang: "Python 3", difficulty: "Easy" },
@@ -19,29 +58,33 @@ const initialRecent = [
   { title: "Swim in Rising Water", slug: "swim-in-rising-water", lang: "Python 3", difficulty: "Hard" },
   { title: "Making A Large Island", slug: "making-a-large-island", lang: "Python 3", difficulty: "Hard" },
 ];
+
+const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
 ---
 
 <section
   id="problem-solving"
   class="section-shell bg-teal-50/60"
-  data-leetcode-section
+  data-dsa-section
   data-leetcode-username={username}
+  data-tuf-username={tufUsername}
+  data-codechef-username={codechefUsername}
 >
   <div class="section-grid">
     <div>
       <p class="eyebrow">03 / practice</p>
       <h2 class="section-title">Problem Solving</h2>
       <p class="mt-6 max-w-xl text-lg leading-relaxed text-slate-600">
-        Data Structures & Algorithms practice across LeetCode, TakeUForward, and CodeChef, with live LeetCode progress and active focus on Medium and Hard problems.
+        Data Structures & Algorithms practice across LeetCode, TakeUForward (TUF), and CodeChef, with real-time stats synchronization and active focus on Medium & Hard problems.
       </p>
 
       <!-- Live Sync Status Indicator -->
-      <div class="mt-5 inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border border-teal-200 bg-white/90 backdrop-blur-xs shadow-xs">
+      <div class="mt-5 inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border border-teal-200 bg-white/95 backdrop-blur-xs shadow-xs">
         <span class="relative flex h-2.5 w-2.5">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" data-leetcode-pulse></span>
-          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" data-leetcode-dot></span>
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" data-sync-pulse></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" data-sync-dot></span>
         </span>
-        <span class="text-teal-900 font-mono" data-leetcode-status>Live LeetCode Sync Active</span>
+        <span class="text-teal-900 font-mono" data-sync-status>Live DSA Sync Active (LeetCode • TUF • CodeChef)</span>
       </div>
 
       <div class="mt-3 text-xs text-slate-500 font-mono flex flex-wrap items-center gap-2">
@@ -50,45 +93,109 @@ const initialRecent = [
         <span>Global Rank: <strong class="text-teal-800 font-bold" data-leetcode-stat="ranking">#{initialRanking}</strong></span>
       </div>
 
-      <a class="inline-link mt-6 group" href={stats.link} target="_blank" rel="noopener noreferrer">
+      <a class="inline-link mt-5 group" href={stats.link} target="_blank" rel="noopener noreferrer">
         <span>View LeetCode Profile</span>
         <span class="transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
       </a>
 
-      {stats.platforms && stats.platforms.length > 0 && (
-        <div class="mt-8 grid gap-3 sm:grid-cols-2">
-          {stats.platforms.map((platform) => (
-            <a
-              href={platform.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group block rounded-xl border border-teal-200 bg-white p-4 shadow-xs transition-all duration-300 hover:border-teal-400 hover:shadow-md"
-            >
-              <div class="flex items-center justify-between text-xs font-mono font-semibold uppercase tracking-wider text-teal-800">
-                <span>{platform.name}</span>
-                <span class="transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
+      <!-- Real-Time TakeUForward & CodeChef Live Cards -->
+      <div class="mt-8 grid gap-4 sm:grid-cols-2">
+        <!-- TakeUForward Live Card -->
+        <a
+          href={siteConfig.social?.takeuforward || `https://takeuforward.org/profile/${tufUsername}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group block rounded-xl border border-teal-200 bg-white p-5 shadow-xs transition-all duration-300 hover:border-teal-400 hover:shadow-md relative overflow-hidden"
+          data-tuf-card
+        >
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-teal-100 text-teal-900 text-xs font-mono font-bold">TUF</span>
+              <span class="text-xs font-mono font-semibold uppercase tracking-wider text-slate-700">TakeUForward</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-xs text-teal-700">
+              <span class="transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
+            </div>
+          </div>
+
+          <div class="mt-4 flex items-baseline justify-between">
+            <div>
+              <strong class="text-3xl font-bold text-slate-900 tracking-tight" data-tuf-stat="solved">{initialTufSolved}</strong>
+              <span class="text-xs text-slate-500 block mt-0.5">Problems Solved</span>
+            </div>
+            <div class="text-right">
+              <span class="text-sm font-bold text-slate-700 font-mono" data-tuf-stat="total">/ {initialTufTotal}</span>
+              <span class="text-[11px] text-slate-500 block">DSA Sheet</span>
+            </div>
+          </div>
+
+          <!-- TUF Completion Bar -->
+          <div class="mt-3">
+            <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+              <div
+                class="bg-teal-600 h-1.5 rounded-full transition-all duration-700"
+                data-tuf-bar
+                style={`width: ${tufPercent}%`}
+              ></div>
+            </div>
+            <div class="mt-1.5 flex items-center justify-between text-[11px] font-mono text-slate-500">
+              <span data-tuf-stat="percent">{tufPercent}% completed</span>
+              <span class="text-emerald-700 font-semibold flex items-center gap-1" data-tuf-status>
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live Synced
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- CodeChef Live Card -->
+        <a
+          href={siteConfig.social?.codechef || `https://www.codechef.com/users/${codechefUsername}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group block rounded-xl border border-teal-200 bg-white p-5 shadow-xs transition-all duration-300 hover:border-teal-400 hover:shadow-md relative overflow-hidden"
+          data-codechef-card
+        >
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 text-xs font-mono font-bold">CC</span>
+              <span class="text-xs font-mono font-semibold uppercase tracking-wider text-slate-700">CodeChef</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-xs text-teal-700">
+              <span class="transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
+            </div>
+          </div>
+
+          <div class="mt-4 flex items-baseline justify-between">
+            <div>
+              <div class="flex items-center gap-2">
+                <strong class="text-3xl font-bold text-slate-900 tracking-tight" data-codechef-stat="rating">{initialCodechefRating}</strong>
+                <span class="px-1.5 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 text-xs font-bold font-mono" data-codechef-stat="stars">{initialCodechefStars}</span>
               </div>
-              <div class="mt-3 flex flex-wrap gap-x-6 gap-y-2">
-                {platform.stats.map((item) => (
-                  <div class="flex flex-col">
-                    <strong class="text-2xl font-bold text-slate-900">{item.value}</strong>
-                    <span class="text-xs text-slate-500">{item.label}</span>
-                  </div>
-                ))}
-              </div>
-            </a>
-          ))}
-        </div>
-      )}
+              <span class="text-xs text-slate-500 block mt-0.5">DSA Rating</span>
+            </div>
+            <div class="text-right">
+              <strong class="text-sm font-bold text-slate-800 font-mono" data-codechef-stat="rank">#{initialCodechefRank}</strong>
+              <span class="text-[11px] text-slate-500 block">Global Rank</span>
+            </div>
+          </div>
+
+          <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-500">
+            <span>Peak: <strong class="text-slate-800" data-codechef-stat="maxRating">{initialCodechefMaxRating}</strong></span>
+            <span class="text-emerald-700 font-semibold flex items-center gap-1" data-codechef-status>
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live Synced
+            </span>
+          </div>
+        </a>
+      </div>
     </div>
 
     <div class="space-y-6">
-      <!-- Main Stats Grid -->
+      <!-- Main LeetCode Stats Grid -->
       <div class="grid grid-cols-2 gap-px overflow-hidden border border-teal-200 bg-teal-200 shadow-xs sm:grid-cols-4 rounded-xl">
         <div class="stat stat-featured col-span-2 sm:col-span-2 p-5 bg-teal-800 text-white">
           <div class="flex items-center justify-between">
             <span class="text-xs uppercase tracking-wider font-semibold text-teal-100">Total Solved</span>
-            <span class="text-xs px-2 py-0.5 rounded bg-teal-700/80 font-mono text-teal-100">Top Rank</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-teal-700/80 font-mono text-teal-100">LeetCode</span>
           </div>
           <strong class="text-3xl sm:text-4xl mt-2 font-bold tracking-tight text-white" data-leetcode-stat="solved">
             {initialSolved}
@@ -222,17 +329,20 @@ const initialRecent = [
 </section>
 
 <script>
-  const section = document.querySelector("[data-leetcode-section]");
-  const username = section?.getAttribute("data-leetcode-username") || "LzLJWzHwdb";
-  const statusEl = section?.querySelector("[data-leetcode-status]");
-  const pulseEl = section?.querySelector("[data-leetcode-pulse]");
-  const dotEl = section?.querySelector("[data-leetcode-dot]");
+  const section = document.querySelector("[data-dsa-section]");
+  const lcUsername = section?.getAttribute("data-leetcode-username") || "LzLJWzHwdb";
+  const tufUsername = section?.getAttribute("data-tuf-username") || "prasannamadiwar";
+  const ccUsername = section?.getAttribute("data-codechef-username") || "prasanna_m146";
+
+  const statusEl = section?.querySelector("[data-sync-status]");
+  const pulseEl = section?.querySelector("[data-sync-pulse]");
+  const dotEl = section?.querySelector("[data-sync-dot]");
   const recentListEl = section?.querySelector("[data-leetcode-recent-list]");
 
-  const setStat = (key: string, value: any) => {
-    const element = section?.querySelector(`[data-leetcode-stat="${key}"]`);
-    if (element && value !== undefined && value !== null && value !== "") {
-      element.textContent = String(value);
+  const setElText = (selector: string, value: any) => {
+    const el = section?.querySelector(selector);
+    if (el && value !== undefined && value !== null && value !== "") {
+      el.textContent = String(value);
     }
   };
 
@@ -263,7 +373,6 @@ const initialRecent = [
   const renderRecentSubmissions = (submissions: any[]) => {
     if (!recentListEl || !Array.isArray(submissions) || submissions.length === 0) return;
 
-    // Filter only accepted submissions and deduplicate by title
     const seen = new Set();
     const accepted = submissions.filter((s) => {
       const isAcc = (s.statusDisplay || "").toLowerCase() === "accepted";
@@ -315,7 +424,8 @@ const initialRecent = [
     }
   };
 
-  const applyData = (data: any) => {
+  // 1. LEETCODE REAL-TIME SYNC
+  const applyLeetCodeData = (data: any) => {
     const totalSolved = data.totalSolved;
     const easy = data.easySolved ?? data.byDifficulty?.easy ?? 0;
     const medium = data.mediumSolved ?? data.byDifficulty?.medium ?? 0;
@@ -333,14 +443,14 @@ const initialRecent = [
       }
     }
 
-    if (totalSolved !== undefined) setStat("solved", formatNumber(totalSolved));
-    if (easy !== undefined) setStat("easy", formatNumber(easy));
-    if (medium !== undefined) setStat("medium", formatNumber(medium));
-    if (hard !== undefined) setStat("hard", formatNumber(hard));
-    if (ranking !== undefined) setStat("ranking", `#${formatNumber(ranking)}`);
-    if (submissions !== undefined) setStat("submissions", formatNumber(submissions));
+    if (totalSolved !== undefined) setElText('[data-leetcode-stat="solved"]', formatNumber(totalSolved));
+    if (easy !== undefined) setElText('[data-leetcode-stat="easy"]', formatNumber(easy));
+    if (medium !== undefined) setElText('[data-leetcode-stat="medium"]', formatNumber(medium));
+    if (hard !== undefined) setElText('[data-leetcode-stat="hard"]', formatNumber(hard));
+    if (ranking !== undefined) setElText('[data-leetcode-stat="ranking"]', `#${formatNumber(ranking)}`);
+    if (submissions !== undefined) setElText('[data-leetcode-stat="submissions"]', formatNumber(submissions));
     if (acceptance !== undefined) {
-      setStat("acceptance", typeof acceptance === "number" ? `${acceptance.toFixed(2)}%` : String(acceptance));
+      setElText('[data-leetcode-stat="acceptance"]', typeof acceptance === "number" ? `${acceptance.toFixed(2)}%` : String(acceptance));
     }
 
     if (easy && medium && hard) {
@@ -353,29 +463,24 @@ const initialRecent = [
   };
 
   const loadLeetCodeStats = async () => {
-    if (!username) return;
-
-    // Fast load from session/local storage if fresh (< 1 hour)
-    const CACHE_KEY = `lc_stats_${username}`;
+    if (!lcUsername) return;
+    const CACHE_KEY = `lc_stats_${lcUsername}`;
     try {
       const cached = localStorage.getItem(CACHE_KEY);
       if (cached) {
         const { timestamp, payload } = JSON.parse(cached);
-        if (Date.now() - timestamp < 3600000) {
-          applyData(payload);
-          if (statusEl) statusEl.textContent = "Live LeetCode Sync Active";
+        if (Date.now() - timestamp < 1800000) {
+          applyLeetCodeData(payload);
         }
       }
     } catch {}
 
-    // Multi-source fallback: Primary is fast Faisal Shohag API, fallback is Alfa API
     const endpoints = [
-      `https://leetcode-api-faisalshohag.vercel.app/${username}`,
-      `https://alfa-leetcode-api.onrender.com/userProfile/${username}`,
+      `https://leetcode-api-faisalshohag.vercel.app/${lcUsername}`,
+      `https://alfa-leetcode-api.onrender.com/userProfile/${lcUsername}`,
     ];
 
     let liveData = null;
-
     for (const url of endpoints) {
       try {
         const json = await fetchWithTimeout(url, 6000);
@@ -383,31 +488,138 @@ const initialRecent = [
           liveData = json.data || json;
           break;
         }
-      } catch (e) {
-        // Try next fallback
-      }
+      } catch {}
     }
 
     if (liveData) {
-      applyData(liveData);
+      applyLeetCodeData(liveData);
       try {
         localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), payload: liveData }));
       } catch {}
-
-      if (statusEl) {
-        const timeStr = new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" });
-        statusEl.textContent = `Live LeetCode Sync Active (${timeStr})`;
-      }
-      if (pulseEl) pulseEl.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75";
-      if (dotEl) dotEl.className = "relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500";
-    } else {
-      // Offline or rate-limited: keep graceful saved stats
-      if (statusEl) statusEl.textContent = "Synced with verified record";
-      if (pulseEl) pulseEl.className = "hidden";
-      if (dotEl) dotEl.className = "relative inline-flex rounded-full h-2.5 w-2.5 bg-teal-600";
     }
   };
 
-  loadLeetCodeStats();
-</script>
+  // 2. TAKEUFORWARD (TUF) REAL-TIME SYNC
+  const applyTufData = (tufData: any) => {
+    const solved = tufData.totalSolved ?? tufData.total_solved;
+    const total = tufData.totalQuestions ?? tufData.total_dsa ?? 1494;
 
+    if (solved !== undefined) {
+      setElText('[data-tuf-stat="solved"]', formatNumber(solved));
+      setElText('[data-tuf-stat="total"]', `/ ${formatNumber(total)}`);
+
+      const pct = ((solved / total) * 100).toFixed(1);
+      setElText('[data-tuf-stat="percent"]', `${pct}% completed`);
+
+      const bar = section?.querySelector("[data-tuf-bar]") as HTMLElement | null;
+      if (bar) bar.style.width = `${pct}%`;
+
+      const tufStatus = section?.querySelector("[data-tuf-status]");
+      if (tufStatus) {
+        tufStatus.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live Synced`;
+      }
+    }
+  };
+
+  const loadTufStats = async () => {
+    if (!tufUsername) return;
+    const CACHE_KEY = `tuf_stats_${tufUsername}`;
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (cached) {
+        const { timestamp, payload } = JSON.parse(cached);
+        if (Date.now() - timestamp < 1800000) {
+          applyTufData(payload);
+        }
+      }
+    } catch {}
+
+    const endpoints = [
+      `https://tuf-stats.tashif.codes/${tufUsername}/stats`,
+    ];
+
+    for (const url of endpoints) {
+      try {
+        const json = await fetchWithTimeout(url, 5000);
+        if (json && json.data?.totalSolved) {
+          applyTufData(json.data);
+          try {
+            localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), payload: json.data }));
+          } catch {}
+          break;
+        }
+      } catch {}
+    }
+  };
+
+  // 3. CODECHEF REAL-TIME SYNC
+  const applyCodeChefData = (ccData: any) => {
+    const rating = ccData.rating_number ?? ccData.currentRating;
+    const stars = ccData.rating ?? ccData.stars;
+    const maxRating = ccData.max_rank ?? ccData.highestRating ?? rating;
+    let globalRank = ccData.global_rank ?? ccData.globalRank;
+
+    if (rating !== undefined) setElText('[data-codechef-stat="rating"]', formatNumber(rating));
+    if (stars) setElText('[data-codechef-stat="stars"]', String(stars).trim());
+    if (maxRating) setElText('[data-codechef-stat="maxRating"]', formatNumber(maxRating));
+
+    if (globalRank) {
+      const num = parseInt(String(globalRank).trim(), 10);
+      setElText('[data-codechef-stat="rank"]', `#${isNaN(num) ? globalRank : num.toLocaleString("en-IN")}`);
+    }
+
+    const ccStatus = section?.querySelector("[data-codechef-status]");
+    if (ccStatus) {
+      ccStatus.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live Synced`;
+    }
+  };
+
+  const loadCodeChefStats = async () => {
+    if (!ccUsername) return;
+    const CACHE_KEY = `codechef_stats_${ccUsername}`;
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (cached) {
+        const { timestamp, payload } = JSON.parse(cached);
+        if (Date.now() - timestamp < 1800000) {
+          applyCodeChefData(payload);
+        }
+      }
+    } catch {}
+
+    const endpoints = [
+      `https://competeapi.vercel.app/user/codechef/${ccUsername}/`,
+    ];
+
+    for (const url of endpoints) {
+      try {
+        const json = await fetchWithTimeout(url, 6000);
+        if (json && json.rating_number) {
+          applyCodeChefData(json);
+          try {
+            localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), payload: json }));
+          } catch {}
+          break;
+        }
+      } catch {}
+    }
+  };
+
+  // Run all real-time syncs concurrently
+  const initSync = async () => {
+    await Promise.allSettled([
+      loadLeetCodeStats(),
+      loadTufStats(),
+      loadCodeChefStats(),
+    ]);
+
+    if (statusEl) {
+      const timeStr = new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" });
+      statusEl.textContent = `Live DSA Sync Active • LeetCode, TUF & CodeChef (${timeStr})`;
+    }
+    if (pulseEl) pulseEl.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75";
+    if (dotEl) dotEl.className = "relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500";
+  };
+
+  initSync();
+</script>

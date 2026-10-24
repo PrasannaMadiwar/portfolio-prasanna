@@ -3,6 +3,7 @@ export const siteConfig = {
   title: "Backend Engineer | AI Systems | Seeking SDE Internship (Summer 2027)",
   description: "B.Tech AI/ML student building backend services for AI workloads: multi-tenant agent APIs, sandboxed code execution, and GPU job orchestration.",
   accentColor: "#0f766e",
+  avatar: "/profile.jpg",
   social: {
     email: "prasannamadiwar71@gmail.com",
     phone: "+91-9527564209",
@@ -95,18 +96,25 @@ export const siteConfig = {
     submissions: 1157,
     acceptance: "60.52%",
     link: "https://leetcode.com/u/LzLJWzHwdb/",
+    tufUsername: "prasannamadiwar",
+    codechefUsername: "prasanna_m146",
     platforms: [
       {
         name: "TakeUForward",
+        id: "takeuforward",
         link: "https://takeuforward.org/profile/prasannamadiwar",
-        stats: [{ value: "460+", label: "Problems solved" }],
+        stats: [
+          { value: "513", label: "Problems solved" },
+          { value: "1,494", label: "Sheet questions" },
+        ],
       },
       {
         name: "CodeChef",
+        id: "codechef",
         link: "https://www.codechef.com/users/prasanna_m146",
         stats: [
-          { value: "1600+", label: "DSA rating" },
-          { value: "1000+", label: "Contest rating" },
+          { value: "1124", label: "DSA rating (1★)" },
+          { value: "#1,11,226", label: "Global rank" },
         ],
       },
     ],
