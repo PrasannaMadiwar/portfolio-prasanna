@@ -14,12 +14,19 @@ const initialSubmissions = stats.submissions ?? 1157;
 const initialAcceptance = stats.acceptance ?? "60.52%";
 const initialRanking = stats.ranking ? stats.ranking.toLocaleString("en-IN") : "405,255";
 
-let initialTufSolved = 513;
-let initialTufTotal = 1494;
-let initialCodechefRating = "1124";
-let initialCodechefStars = "1★";
-let initialCodechefRank = "1,11,226";
-let initialCodechefMaxRating = "1124";
+let initialTufSolved = stats.tufPlusScore ?? 513;
+let initialTufTotal = stats.tufTotalQuestions ?? 1494;
+
+// CodeChef stats: Separate DSA Challenge rating (1600 3★) from Starters Contest rating (1124 1★)
+let initialCodechefDsaRating = stats.codechefDsaRatingNumber ? String(stats.codechefDsaRatingNumber) : "1600";
+let initialCodechefDsaStars = stats.codechefDsaStars ?? "3★";
+let initialCodechefDsaRank = stats.codechefDsaGlobalRank ?? "4,642";
+let initialCodechefDsaMaxRating = stats.codechefDsaMaxRating ?? "1600";
+
+let initialCodechefNormalRating = stats.codechefNormalRatingNumber ? String(stats.codechefNormalRatingNumber) : "1124";
+let initialCodechefNormalStars = stats.codechefNormalStars ?? "1★";
+let initialCodechefNormalRank = stats.codechefGlobalRank ?? "1,11,226";
+let initialCodechefNormalMaxRating = stats.codechefMaxRating ?? "1124";
 
 // Build-time pre-fetch
 try {
@@ -42,11 +49,11 @@ try {
   if (ccRes.ok) {
     const ccJson = await ccRes.json();
     if (ccJson.rating_number) {
-      initialCodechefRating = String(ccJson.rating_number);
-      initialCodechefStars = ccJson.rating || "1★";
-      initialCodechefMaxRating = String(ccJson.max_rank ?? ccJson.rating_number);
+      initialCodechefNormalRating = String(ccJson.rating_number);
+      initialCodechefNormalStars = ccJson.rating || "1★";
+      initialCodechefNormalMaxRating = String(ccJson.max_rank ?? ccJson.rating_number);
       const gRank = parseInt(String(ccJson.global_rank).trim(), 10);
-      if (!isNaN(gRank)) initialCodechefRank = gRank.toLocaleString("en-IN");
+      if (!isNaN(gRank)) initialCodechefNormalRank = gRank.toLocaleString("en-IN");
     }
   }
 } catch {}
@@ -71,47 +78,30 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
   data-codechef-username={codechefUsername}
 >
   <div class="max-w-7xl mx-auto space-y-10">
-    <!-- Header with Live Sync Status -->
-    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-6 border-b border-slate-800">
-      <div>
-        <p class="eyebrow">03 / practice</p>
-        <h2 class="section-title text-white">Problem Solving</h2>
-        <p class="mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-slate-400">
-          Data Structures & Algorithms across LeetCode, TakeUForward (TUF+), and CodeChef, featuring real-time statistics synchronization and focused problem solving.
-        </p>
-      </div>
-
-      <!-- Live Sync Status Indicator -->
-      <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-xs font-semibold tracking-wide border border-teal-500/30 bg-teal-950/40 backdrop-blur-md shadow-inner">
-        <span class="relative flex h-2.5 w-2.5">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" data-sync-pulse></span>
-          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" data-sync-dot></span>
-        </span>
-        <span class="text-teal-300 font-mono" data-sync-status>Live DSA Sync Active (LeetCode • TUF+ • CodeChef)</span>
-      </div>
+    <!-- Section Header -->
+    <div class="pb-6 border-b border-slate-800">
+      <p class="eyebrow">03 / practice</p>
+      <h2 class="section-title text-white">Problem Solving</h2>
+      <p class="mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-slate-400">
+        Data Structures & Algorithms across LeetCode, TakeUForward (TUF+), and CodeChef, focusing on competitive programming and system interview preparation.
+      </p>
     </div>
 
     <!-- 3 Equal Box Size Cards for LeetCode, TakeUForward (TUF+), and CodeChef -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
       
-      <!-- BOX 1: LeetCode (Uniform Card Height & Structure) -->
-      <div class="rounded-2xl border border-slate-800 bg-[#0d1527] p-6 shadow-xl flex flex-col justify-between h-full hover:border-amber-500/40 transition-all duration-300 relative overflow-hidden group">
-        <!-- Subtle Glow -->
-        <div class="absolute -top-16 -right-16 w-36 h-36 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all pointer-events-none"></div>
-
+      <!-- BOX 1: LeetCode -->
+      <div class="rounded-2xl border border-slate-800 bg-[#0d1527] p-6 shadow-xl flex flex-col justify-between h-full hover:border-slate-700 transition-all duration-300 relative group">
         <div>
           <!-- Platform Header -->
           <div class="flex items-center justify-between pb-4 border-b border-slate-800/80">
             <div class="flex items-center gap-2.5">
-              <span class="px-2 py-1 rounded-md bg-amber-500/20 border border-amber-500/40 text-amber-400 text-xs font-mono font-bold">LC</span>
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-xs font-mono font-bold">LC</span>
               <div>
                 <h3 class="font-bold text-white text-base">LeetCode</h3>
                 <span class="text-[11px] font-mono text-slate-400">@{username}</span>
               </div>
             </div>
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-[11px] font-mono text-emerald-400">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Live Synced
-            </span>
           </div>
 
           <!-- Hero Highlight Metric -->
@@ -126,15 +116,15 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
           <!-- Stats Grid -->
           <div class="mt-5 grid grid-cols-3 gap-2 p-3 rounded-xl bg-slate-900/90 border border-slate-800">
             <div class="text-center">
-              <span class="text-[10px] uppercase font-mono tracking-wider text-emerald-400 block">Easy</span>
+              <span class="text-[10px] uppercase font-mono tracking-wider text-emerald-400 block font-semibold">Easy</span>
               <strong class="text-lg font-bold text-white font-mono" data-leetcode-stat="easy">{initialEasy}</strong>
             </div>
             <div class="text-center border-x border-slate-800">
-              <span class="text-[10px] uppercase font-mono tracking-wider text-amber-400 block">Medium</span>
+              <span class="text-[10px] uppercase font-mono tracking-wider text-amber-400 block font-semibold">Medium</span>
               <strong class="text-lg font-bold text-white font-mono" data-leetcode-stat="medium">{initialMedium}</strong>
             </div>
             <div class="text-center">
-              <span class="text-[10px] uppercase font-mono tracking-wider text-rose-400 block">Hard</span>
+              <span class="text-[10px] uppercase font-mono tracking-wider text-rose-400 block font-semibold">Hard</span>
               <strong class="text-lg font-bold text-white font-mono" data-leetcode-stat="hard">{initialHard}</strong>
             </div>
           </div>
@@ -143,7 +133,7 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
           <div class="mt-4 space-y-2 text-xs font-mono text-slate-400">
             <div class="flex items-center justify-between py-1 border-b border-slate-800/60">
               <span>Global Rank:</span>
-              <strong class="text-teal-400" data-leetcode-stat="ranking">#{initialRanking}</strong>
+              <strong class="text-slate-200" data-leetcode-stat="ranking">#{initialRanking}</strong>
             </div>
             <div class="flex items-center justify-between py-1 border-b border-slate-800/60">
               <span>Acceptance Rate:</span>
@@ -162,7 +152,7 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
             href={stats.link}
             target="_blank"
             rel="noopener noreferrer"
-            class="flex items-center justify-between w-full text-xs font-mono font-semibold text-amber-400 hover:text-amber-300 transition-colors group/link"
+            class="flex items-center justify-between w-full text-xs font-mono font-semibold text-slate-300 hover:text-white transition-colors group/link"
           >
             <span>View LeetCode Profile</span>
             <span class="transition-transform duration-200 group-hover/link:translate-x-1" aria-hidden="true">→</span>
@@ -170,32 +160,26 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
         </div>
       </div>
 
-      <!-- BOX 2: TakeUForward / TUF+ (Uniform Card Height & Structure) -->
-      <div class="rounded-2xl border border-slate-800 bg-[#0d1527] p-6 shadow-xl flex flex-col justify-between h-full hover:border-teal-500/40 transition-all duration-300 relative overflow-hidden group">
-        <!-- Subtle Glow -->
-        <div class="absolute -top-16 -right-16 w-36 h-36 bg-teal-500/10 rounded-full blur-2xl group-hover:bg-teal-500/20 transition-all pointer-events-none"></div>
-
+      <!-- BOX 2: TakeUForward / TUF+ -->
+      <div class="rounded-2xl border border-slate-800 bg-[#0d1527] p-6 shadow-xl flex flex-col justify-between h-full hover:border-slate-700 transition-all duration-300 relative group">
         <div>
           <!-- Platform Header -->
           <div class="flex items-center justify-between pb-4 border-b border-slate-800/80">
             <div class="flex items-center gap-2.5">
-              <span class="px-2 py-1 rounded-md bg-teal-500/20 border border-teal-500/40 text-teal-300 text-xs font-mono font-bold">TUF+</span>
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-xs font-mono font-bold">TUF+</span>
               <div>
                 <h3 class="font-bold text-white text-base">TakeUForward</h3>
                 <span class="text-[11px] font-mono text-slate-400">@{tufUsername}</span>
               </div>
             </div>
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-[11px] font-mono text-emerald-400" data-tuf-status>
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Live Synced
-            </span>
           </div>
 
-          <!-- Hero Highlight Metric: TUF+ Score & Solved -->
+          <!-- Hero Highlight Metric -->
           <div class="mt-5">
-            <span class="text-xs font-mono uppercase tracking-wider text-slate-400">TUF+ Score & Solved</span>
+            <span class="text-xs font-mono uppercase tracking-wider text-slate-400">Problems Solved</span>
             <div class="flex items-baseline gap-2 mt-1">
               <strong class="text-4xl sm:text-5xl font-bold tracking-tight text-white font-mono" data-tuf-stat="score">{initialTufSolved}</strong>
-              <span class="text-xs font-mono text-teal-400 font-semibold" data-tuf-stat="total">/ {initialTufTotal} Target</span>
+              <span class="text-xs font-mono text-slate-400" data-tuf-stat="total">/ {initialTufTotal} questions</span>
             </div>
           </div>
 
@@ -207,14 +191,10 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
             </div>
             <div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
               <div
-                class="bg-gradient-to-r from-teal-500 to-emerald-400 h-2 rounded-full transition-all duration-700"
+                class="bg-teal-500 h-2 rounded-full transition-all duration-700"
                 data-tuf-bar
                 style={`width: ${tufPercent}%`}
               ></div>
-            </div>
-            <div class="mt-2 flex items-center justify-between text-[10px] font-mono text-slate-400">
-              <span>0 Solved</span>
-              <span>1,494 Full Target</span>
             </div>
           </div>
 
@@ -229,8 +209,8 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
               <strong class="text-white">Striver's A2Z & SDE</strong>
             </div>
             <div class="flex items-center justify-between py-1">
-              <span>Track Status:</span>
-              <strong class="text-emerald-400">Active Daily Practice</strong>
+              <span>Primary Language:</span>
+              <strong class="text-slate-300">Python 3 & C++</strong>
             </div>
           </div>
         </div>
@@ -241,7 +221,7 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
             href={siteConfig.social?.takeuforward || `https://takeuforward.org/profile/${tufUsername}`}
             target="_blank"
             rel="noopener noreferrer"
-            class="flex items-center justify-between w-full text-xs font-mono font-semibold text-teal-400 hover:text-teal-300 transition-colors group/link"
+            class="flex items-center justify-between w-full text-xs font-mono font-semibold text-slate-300 hover:text-white transition-colors group/link"
           >
             <span>View TUF+ Profile</span>
             <span class="transition-transform duration-200 group-hover/link:translate-x-1" aria-hidden="true">→</span>
@@ -249,60 +229,56 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
         </div>
       </div>
 
-      <!-- BOX 3: CodeChef (Uniform Card Height & Structure - Shows BOTH DSA & Normal Rating) -->
-      <div class="rounded-2xl border border-slate-800 bg-[#0d1527] p-6 shadow-xl flex flex-col justify-between h-full hover:border-amber-500/40 transition-all duration-300 relative overflow-hidden group">
-        <!-- Subtle Glow -->
-        <div class="absolute -top-16 -right-16 w-36 h-36 bg-amber-600/10 rounded-full blur-2xl group-hover:bg-amber-600/20 transition-all pointer-events-none"></div>
-
+      <!-- BOX 3: CodeChef -->
+      <div class="rounded-2xl border border-slate-800 bg-[#0d1527] p-6 shadow-xl flex flex-col justify-between h-full hover:border-slate-700 transition-all duration-300 relative group">
         <div>
           <!-- Platform Header -->
           <div class="flex items-center justify-between pb-4 border-b border-slate-800/80">
             <div class="flex items-center gap-2.5">
-              <span class="px-2 py-1 rounded-md bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-mono font-bold">CC</span>
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-xs font-mono font-bold">CC</span>
               <div>
                 <h3 class="font-bold text-white text-base">CodeChef</h3>
                 <span class="text-[11px] font-mono text-slate-400">@{codechefUsername}</span>
               </div>
             </div>
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-[11px] font-mono text-emerald-400" data-codechef-status>
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Live Synced
-            </span>
           </div>
 
-          <!-- Hero Highlight Metric: Rating -->
+          <!-- Hero Highlight Metric: DSA Rating -->
           <div class="mt-5">
-            <span class="text-xs font-mono uppercase tracking-wider text-slate-400">Contest & DSA Rating</span>
-            <div class="flex items-baseline gap-2 mt-1">
-              <strong class="text-4xl sm:text-5xl font-bold tracking-tight text-white font-mono" data-codechef-stat="rating">{initialCodechefRating}</strong>
-              <span class="px-2 py-0.5 rounded-md bg-amber-500/20 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold" data-codechef-stat="stars">{initialCodechefStars}</span>
+            <span class="text-xs font-mono uppercase tracking-wider text-slate-400">CodeChef DSA Rating</span>
+            <div class="flex items-baseline gap-2.5 mt-1">
+              <strong class="text-4xl sm:text-5xl font-bold tracking-tight text-white font-mono" data-codechef-stat="dsaRating">{initialCodechefDsaRating}</strong>
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-xs font-bold" data-codechef-stat="dsaStars">{initialCodechefDsaStars}</span>
             </div>
           </div>
 
-          <!-- Dual Rating Grid: SHOWS BOTH DSA & NORMAL / CONTEST RATING -->
+          <!-- Dual Rating Grid: Separation of DSA & Contest Rating -->
           <div class="mt-5 grid grid-cols-2 gap-2 p-3 rounded-xl bg-slate-900/90 border border-slate-800">
             <div class="text-center border-r border-slate-800 pr-2">
-              <span class="text-[10px] uppercase font-mono tracking-wider text-amber-400 block">DSA Rating</span>
-              <strong class="text-lg font-bold text-white font-mono" data-codechef-stat="dsaRating">{initialCodechefRating} ({initialCodechefStars})</strong>
+              <span class="text-[10px] uppercase font-mono tracking-wider text-slate-400 block font-semibold">DSA Rating</span>
+              <strong class="text-base sm:text-lg font-bold text-white font-mono" data-codechef-stat="dsaGrid">{initialCodechefDsaRating} ({initialCodechefDsaStars})</strong>
+              <span class="text-[10px] text-slate-400 block font-mono mt-0.5">Rank #{initialCodechefDsaRank}</span>
             </div>
             <div class="text-center pl-2">
-              <span class="text-[10px] uppercase font-mono tracking-wider text-teal-400 block">Normal Rating</span>
-              <strong class="text-lg font-bold text-white font-mono" data-codechef-stat="normalRating">{initialCodechefRating}</strong>
+              <span class="text-[10px] uppercase font-mono tracking-wider text-slate-400 block font-semibold">Contest Rating</span>
+              <strong class="text-base sm:text-lg font-bold text-white font-mono" data-codechef-stat="normalRating">{initialCodechefNormalRating} ({initialCodechefNormalStars})</strong>
+              <span class="text-[10px] text-slate-400 block font-mono mt-0.5">Rank #{initialCodechefNormalRank}</span>
             </div>
           </div>
 
           <!-- Meta rows -->
           <div class="mt-4 space-y-2 text-xs font-mono text-slate-400">
             <div class="flex items-center justify-between py-1 border-b border-slate-800/60">
-              <span>Global Rank:</span>
-              <strong class="text-amber-300 font-bold" data-codechef-stat="rank">#{initialCodechefRank}</strong>
+              <span>DSA Global Rank:</span>
+              <strong class="text-slate-200" data-codechef-stat="dsaRank">#{initialCodechefDsaRank}</strong>
             </div>
             <div class="flex items-center justify-between py-1 border-b border-slate-800/60">
-              <span>Peak Rating:</span>
-              <strong class="text-white" data-codechef-stat="maxRating">{initialCodechefMaxRating}</strong>
+              <span>DSA Challenge Peak:</span>
+              <strong class="text-white" data-codechef-stat="dsaMax">{initialCodechefDsaMaxRating} (Rank #396)</strong>
             </div>
             <div class="flex items-center justify-between py-1">
-              <span>Division:</span>
-              <strong class="text-slate-300">Div 4 (1 Star)</strong>
+              <span>Starters Rating:</span>
+              <strong class="text-slate-300" data-codechef-stat="normalMeta">{initialCodechefNormalRating} (Peak {initialCodechefNormalMaxRating})</strong>
             </div>
           </div>
         </div>
@@ -313,7 +289,7 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
             href={siteConfig.social?.codechef || `https://www.codechef.com/users/${codechefUsername}`}
             target="_blank"
             rel="noopener noreferrer"
-            class="flex items-center justify-between w-full text-xs font-mono font-semibold text-amber-400 hover:text-amber-300 transition-colors group/link"
+            class="flex items-center justify-between w-full text-xs font-mono font-semibold text-slate-300 hover:text-white transition-colors group/link"
           >
             <span>View CodeChef Profile</span>
             <span class="transition-transform duration-200 group-hover/link:translate-x-1" aria-hidden="true">→</span>
@@ -329,7 +305,6 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
       <div class="lg:col-span-5 rounded-2xl border border-slate-800 bg-[#0d1527] p-6 shadow-xl">
         <div class="flex items-center justify-between text-xs font-mono font-semibold text-slate-300 mb-4">
           <span class="uppercase tracking-wider">Difficulty Distribution</span>
-          <span class="text-teal-400">LeetCode Sync</span>
         </div>
 
         <div class="h-3 w-full rounded-full bg-slate-800 overflow-hidden flex">
@@ -372,11 +347,7 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
       <!-- Recent Solved Problems Feed -->
       <div class="lg:col-span-7 rounded-2xl border border-slate-800 bg-[#0d1527] p-6 shadow-xl">
         <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-          <div class="flex items-center gap-2">
-            <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <h3 class="text-xs font-bold font-mono tracking-wider text-slate-200 uppercase">Recent Accepted Submissions</h3>
-          </div>
-          <span class="text-[11px] font-mono text-teal-400">Live Stream</span>
+          <h3 class="text-xs font-bold font-mono tracking-wider text-slate-200 uppercase">Recent Accepted Submissions</h3>
         </div>
 
         <ul class="divide-y divide-slate-800/80 mt-2 text-sm" data-leetcode-recent-list>
@@ -597,11 +568,6 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
 
       const bar = section?.querySelector("[data-tuf-bar]") as HTMLElement | null;
       if (bar) bar.style.width = `${pct}%`;
-
-      const tufStatus = section?.querySelector("[data-tuf-status]");
-      if (tufStatus) {
-        tufStatus.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Live Synced`;
-      }
     }
   };
 
@@ -636,35 +602,37 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
     }
   };
 
-  // 3. CODECHEF REAL-TIME SYNC (DSA & NORMAL RATING)
+  // 3. CODECHEF REAL-TIME SYNC (DSA & CONTEST RATING)
   const applyCodeChefData = (ccData: any) => {
-    const rating = ccData.rating_number ?? ccData.currentRating;
-    const stars = ccData.rating ?? ccData.stars ?? "1★";
-    const maxRating = ccData.max_rank ?? ccData.highestRating ?? rating;
-    let globalRank = ccData.global_rank ?? ccData.globalRank;
+    // If the API payload specifically has DSA-specific fields (e.g. from dsa_monday)
+    const dsaRating = ccData.dsa_rating ?? ccData.dsaRating;
+    const dsaStars = ccData.dsa_stars ?? ccData.dsaStars;
+    const dsaRank = ccData.dsa_rank ?? ccData.dsaRank;
+    const dsaMax = ccData.dsa_max ?? ccData.dsaMaxRating;
 
-    if (rating !== undefined) {
-      setElText('[data-codechef-stat="rating"]', formatNumber(rating));
-      setElText('[data-codechef-stat="normalRating"]', formatNumber(rating));
-      setElText('[data-codechef-stat="dsaRating"]', `${formatNumber(rating)} (${String(stars).trim()})`);
+    if (dsaRating !== undefined) {
+      setElText('[data-codechef-stat="dsaRating"]', formatNumber(dsaRating));
+      setElText('[data-codechef-stat="dsaGrid"]', `${formatNumber(dsaRating)} (${dsaStars || "3★"})`);
     }
-    if (stars) setElText('[data-codechef-stat="stars"]', String(stars).trim());
-    if (maxRating) setElText('[data-codechef-stat="maxRating"]', formatNumber(maxRating));
+    if (dsaStars) setElText('[data-codechef-stat="dsaStars"]', String(dsaStars).trim());
+    if (dsaRank) setElText('[data-codechef-stat="dsaRank"]', `#${formatNumber(dsaRank)}`);
+    if (dsaMax) setElText('[data-codechef-stat="dsaMax"]', `${formatNumber(dsaMax)} (Rank #396)`);
 
-    if (globalRank) {
-      const num = parseInt(String(globalRank).trim(), 10);
-      setElText('[data-codechef-stat="rank"]', `#${isNaN(num) ? globalRank : num.toLocaleString("en-IN")}`);
-    }
+    // Normal / Starters contest rating
+    const normalRating = ccData.rating_number ?? ccData.currentRating;
+    const normalStars = ccData.rating ?? ccData.stars ?? "1★";
+    const normalMax = ccData.max_rank ?? ccData.highestRating ?? normalRating;
+    let normalGlobalRank = ccData.global_rank ?? ccData.globalRank;
 
-    const ccStatus = section?.querySelector("[data-codechef-status]");
-    if (ccStatus) {
-      ccStatus.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Live Synced`;
+    if (normalRating !== undefined) {
+      setElText('[data-codechef-stat="normalRating"]', `${formatNumber(normalRating)} (${String(normalStars).trim()})`);
+      setElText('[data-codechef-stat="normalMeta"]', `${formatNumber(normalRating)} (Peak ${formatNumber(normalMax)})`);
     }
   };
 
   const loadCodeChefStats = async () => {
     if (!ccUsername) return;
-    const CACHE_KEY = `codechef_stats_${ccUsername}`;
+    const CACHE_KEY = `codechef_stats_v3_${ccUsername}`;
     try {
       const cached = localStorage.getItem(CACHE_KEY);
       if (cached) {
@@ -699,13 +667,6 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
       loadTufStats(),
       loadCodeChefStats(),
     ]);
-
-    if (statusEl) {
-      const timeStr = new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" });
-      statusEl.textContent = `Live DSA Sync Active • LeetCode, TUF+ & CodeChef (${timeStr})`;
-    }
-    if (pulseEl) pulseEl.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75";
-    if (dotEl) dotEl.className = "relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500";
   };
 
   initSync();

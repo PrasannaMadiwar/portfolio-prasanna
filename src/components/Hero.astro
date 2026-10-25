@@ -14,39 +14,23 @@ import { siteConfig } from "../config";
   >
   </div>
 
-  <!-- Background Grid & Code Symbols -->
+  <!-- Subtle Dark Background Grid -->
   <svg
     aria-hidden="true"
-    class="absolute inset-0 -z-10 size-full stroke-slate-800/40 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
+    class="absolute inset-0 -z-10 size-full stroke-slate-800/30 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
   >
     <defs>
       <pattern
         x="50%"
         y={-1}
         id="hero-grid"
-        width={160}
-        height={160}
+        width={120}
+        height={120}
         patternUnits="userSpaceOnUse"
       >
-        <path d="M.5 160V.5H160" fill="none"></path>
-      </pattern>
-      <pattern
-        id="programming-symbols-dark"
-        x="0"
-        y="0"
-        width="400"
-        height="400"
-        patternUnits="userSpaceOnUse"
-      >
-        <text x="50" y="50" fill="#14b8a6" opacity="0.35" font-family="monospace" font-size="20" transform="rotate(-15)">&lt;/&gt;</text>
-        <text x="160" y="100" fill="#14b8a6" opacity="0.3" font-family="monospace" font-size="18" transform="rotate(10)">{}</text>
-        <text x="260" y="80" fill="#14b8a6" opacity="0.3" font-family="monospace" font-size="16" transform="rotate(-5)">=&gt;</text>
-        <text x="100" y="220" fill="#14b8a6" opacity="0.35" font-family="monospace" font-size="20" transform="rotate(15)">[]</text>
-        <text x="320" y="190" fill="#14b8a6" opacity="0.25" font-family="monospace" font-size="18" transform="rotate(-10)">&lt;&gt;</text>
-        <text x="210" y="270" fill="#14b8a6" opacity="0.3" font-family="monospace" font-size="22" transform="rotate(5)">()</text>
+        <path d="M.5 120V.5H120" fill="none"></path>
       </pattern>
     </defs>
-    <rect fill="url(#programming-symbols-dark)" width="100%" height="100%"></rect>
     <rect fill="url(#hero-grid)" width="100%" height="100%"></rect>
   </svg>
 
@@ -55,12 +39,9 @@ import { siteConfig } from "../config";
       <!-- Left Column: Intro & Info -->
       <div class="lg:col-span-8 space-y-5">
         <!-- Status Pill -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-teal-500/40 text-teal-300 text-xs font-mono font-semibold tracking-wide animate-fade-in shadow-inner">
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <span>Available for SDE Internships • Summer 2027</span>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-300 text-xs font-mono">
+          <span class="w-1.5 h-1.5 rounded-full bg-teal-400"></span>
+          <span>Available for Internships • Summer 2027</span>
         </div>
 
         <div>
@@ -68,7 +49,7 @@ import { siteConfig } from "../config";
             Hello! 👋
           </h2>
           <h1 class="mt-2 text-pretty text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white animate-fade-in animation-delay-200">
-            I'm <span class="text-teal-400 bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-emerald-300">{siteConfig.name}</span>
+            I'm <span class="text-white">{siteConfig.name}</span>
           </h1>
           <p class="mt-4 text-pretty text-base sm:text-lg md:text-xl leading-relaxed text-slate-300 font-normal animate-fade-in animation-delay-400 max-w-2xl">
             {siteConfig.title}
@@ -77,31 +58,30 @@ import { siteConfig } from "../config";
 
         <!-- Quick Highlight Badges -->
         <div class="flex flex-wrap gap-2 text-xs font-mono animate-fade-in animation-delay-400 pt-1">
-          <span class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200">
+          <span class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">
             VIT Pune • CGPA 9.33
           </span>
-          <span class="px-3 py-1 rounded-lg bg-teal-950/70 border border-teal-700/60 text-teal-300">
+          <span class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">
             ICST 2026 Researcher (IIT Patna)
           </span>
-          <span class="px-3 py-1 rounded-lg bg-emerald-950/70 border border-emerald-700/60 text-emerald-300">
-            513 TUF+ • 352 LeetCode • 1★ CodeChef
+          <span class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">
+            513 TUF+ • 352 LeetCode • 1600 CodeChef DSA
           </span>
         </div>
 
         <!-- Call to actions -->
-        <div class="pt-2 flex flex-wrap items-center gap-4 animate-fade-in animation-delay-600">
+        <div class="pt-2 flex flex-wrap items-center gap-3 animate-fade-in animation-delay-600">
           <a
             href="#projects"
-            class="px-5 py-2.5 rounded-lg text-white font-medium text-sm transition-all shadow-lg bg-teal-600 hover:bg-teal-500 hover:shadow-teal-500/20"
+            class="px-5 py-2.5 rounded-lg text-white font-medium text-sm transition-all bg-teal-600 hover:bg-teal-500 shadow-sm"
           >
             Explore Projects →
           </a>
           <a
             href="#problem-solving"
-            class="px-5 py-2.5 rounded-lg border border-teal-500/40 text-teal-200 font-medium text-sm bg-slate-900/90 hover:bg-slate-800 transition-colors shadow-sm flex items-center gap-2"
+            class="px-5 py-2.5 rounded-lg border border-slate-700 text-slate-200 font-medium text-sm bg-slate-900 hover:bg-slate-800 transition-colors shadow-sm"
           >
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>Live DSA Stats</span>
+            Problem Solving →
           </a>
         </div>
 
@@ -210,52 +190,23 @@ import { siteConfig } from "../config";
         </div>
       </div>
 
-      <!-- Right Column: REDUCED SIZE Portrait Image Presentation -->
+      <!-- Right Column: Clean Professional Portrait Presentation -->
       <div class="lg:col-span-4 flex justify-center lg:justify-end animate-fade-in animation-delay-200">
-        <!-- Compact, balanced image wrapper (reduced size) -->
         <div class="relative group w-48 sm:w-56 md:w-60">
-          <!-- Ambient Glow Background -->
-          <div
-            class="absolute -inset-2 rounded-2xl blur-xl opacity-50 group-hover:opacity-80 transition-opacity duration-700 -z-10"
-            style={`background: linear-gradient(135deg, ${siteConfig.accentColor}70, #10b98150, ${siteConfig.accentColor}40)`}
-          ></div>
-
-          <!-- Main Compact Image Frame -->
-          <div class="relative overflow-hidden rounded-2xl border border-teal-500/50 bg-slate-900 shadow-2xl backdrop-blur-md">
-            <!-- Constrained Aspect Ratio for compact profile look -->
+          <div class="relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 shadow-xl transition-all duration-300 group-hover:border-slate-700">
+            <!-- Aspect Ratio constrained for clean profile view -->
             <div class="aspect-[4/5] w-full overflow-hidden bg-slate-950">
               <img
                 src={siteConfig.avatar || "/profile.jpg"}
                 alt={siteConfig.name}
-                class="w-full h-full object-cover object-top filter grayscale contrast-110 brightness-95 transition-all duration-500 group-hover:scale-105 group-hover:contrast-115"
+                class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-102"
                 loading="eager"
               />
             </div>
 
-            <!-- Floating Top Micro-Badge -->
-            <div class="absolute top-2.5 right-2.5 bg-slate-900/90 backdrop-blur-md border border-teal-500/40 rounded-lg px-2 py-1 shadow-md flex items-center gap-1">
-              <span class="text-[10px] font-bold text-teal-300 font-mono">ICST '26</span>
-              <span class="text-[9px] text-slate-400">IIT Patna</span>
-            </div>
-
-            <!-- Floating Bottom Info Pill (Compact) -->
-            <div class="absolute bottom-2.5 left-2.5 right-2.5 bg-slate-900/95 backdrop-blur-md border border-slate-700/80 rounded-xl p-2 shadow-lg">
-              <div class="flex items-center justify-between">
-                <div>
-                  <div class="flex items-center gap-1.5">
-                    <span class="relative flex h-2 w-2">
-                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                      <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                    </span>
-                    <strong class="text-[11px] font-bold text-white tracking-tight">SDE Intern Track</strong>
-                  </div>
-                  <p class="text-[10px] text-teal-300 font-mono mt-0.5">VIT Pune • AI/ML</p>
-                </div>
-                <div class="text-right">
-                  <span class="text-[9px] font-mono font-bold uppercase tracking-wider text-slate-400 block">Summer</span>
-                  <strong class="text-[11px] font-mono font-bold text-white">2027</strong>
-                </div>
-              </div>
+            <!-- Subtle Understated Badge -->
+            <div class="absolute top-2.5 right-2.5 bg-slate-950/80 backdrop-blur-md border border-slate-800 rounded-md px-2 py-0.5 shadow-sm">
+              <span class="text-[10px] font-mono text-slate-300">VIT Pune</span>
             </div>
           </div>
         </div>
