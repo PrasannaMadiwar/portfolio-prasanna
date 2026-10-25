@@ -8,35 +8,35 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
 
 <header
   id="header"
-  class="fixed top-0 left-0 right-0 z-50 hidden md:block transition-all duration-300 border-b border-transparent"
+  class="fixed top-0 left-0 right-0 z-50 hidden md:block transition-all duration-300 border-b border-transparent bg-[#080b12]/80 backdrop-blur-md"
 >
-  <nav class="max-w-7xl mx-auto px-8 py-3 flex items-center justify-between">
+  <nav class="max-w-7xl mx-auto px-8 py-3.5 flex items-center justify-between">
     <a
       href="#hero"
-      class="flex items-center gap-2.5 font-bold text-slate-800 hover:text-teal-700 transition-colors group"
+      class="flex items-center gap-2.5 font-bold text-white hover:text-teal-300 transition-colors group"
     >
       <img
         src={siteConfig.avatar || "/profile.jpg"}
         alt={siteConfig.name}
-        class="w-8 h-8 rounded-full object-cover object-top border border-teal-300 ring-2 ring-teal-100 group-hover:ring-teal-400 transition-all"
+        class="w-7 h-7 rounded-full object-cover object-top border border-teal-500/50 ring-1 ring-teal-500/30 group-hover:ring-teal-400 transition-all"
       />
-      <span class="text-sm font-semibold tracking-tight text-slate-900 group-hover:text-teal-800">{siteConfig.name}</span>
+      <span class="text-sm font-semibold tracking-tight text-slate-100 group-hover:text-teal-300 font-mono">{siteConfig.name}</span>
     </a>
 
-    <ul class="flex items-center gap-7 justify-center text-sm">
+    <ul class="flex items-center gap-7 justify-center text-sm font-mono">
       <li>
         <a
           href="#about"
-          class="text-gray-700 hover:text-teal-800 transition-colors font-medium"
+          class="text-slate-300 hover:text-teal-300 transition-colors"
         >
           About
         </a>
       </li>
-      <li><a href="#skills" class="text-gray-700 hover:text-teal-800 transition-colors font-medium">Skills</a></li>
+      <li><a href="#skills" class="text-slate-300 hover:text-teal-300 transition-colors">Skills</a></li>
       <li>
-        <a href="#problem-solving" class="text-gray-700 hover:text-teal-800 transition-colors font-medium flex items-center gap-1.5">
+        <a href="#problem-solving" class="text-slate-300 hover:text-teal-300 transition-colors flex items-center gap-1.5">
           <span>DSA</span>
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
         </a>
       </li>
       {
@@ -44,20 +44,20 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
           <li>
             <a
               href="#projects"
-              class="text-gray-700 hover:text-teal-800 transition-colors font-medium"
+              class="text-slate-300 hover:text-teal-300 transition-colors"
             >
               Projects
             </a>
           </li>
         )
       }
-      <li><a href="#research" class="text-gray-700 hover:text-teal-800 transition-colors font-medium">Achievements</a></li>
+      <li><a href="#research" class="text-slate-300 hover:text-teal-300 transition-colors">Achievements</a></li>
       {
         hasEducation && (
           <li>
             <a
               href="#education"
-              class="text-gray-700 hover:text-teal-800 transition-colors font-medium"
+              class="text-slate-300 hover:text-teal-300 transition-colors"
             >
               Education
             </a>
@@ -71,10 +71,10 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
 <script>
   window.addEventListener("scroll", () => {
     const header = document.getElementById("header");
-    if (window.scrollY > 80) {
-      header?.classList.add("bg-white/90", "backdrop-blur-md", "shadow-xs", "border-teal-100");
+    if (window.scrollY > 40) {
+      header?.classList.add("bg-[#080b12]/95", "border-slate-800", "shadow-lg");
     } else {
-      header?.classList.remove("bg-white/90", "backdrop-blur-md", "shadow-xs", "border-teal-100");
+      header?.classList.remove("border-slate-800", "shadow-lg");
     }
   });
 </script>

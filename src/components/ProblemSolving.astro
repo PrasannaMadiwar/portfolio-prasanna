@@ -21,7 +21,7 @@ let initialCodechefStars = "1★";
 let initialCodechefRank = "1,11,226";
 let initialCodechefMaxRating = "1124";
 
-// Build-time pre-fetch so the initial HTML build contains latest live stats
+// Build-time pre-fetch
 try {
   const tufRes = await fetch(`https://tuf-stats.tashif.codes/${tufUsername}/stats`, {
     signal: AbortSignal.timeout(3500),
@@ -64,193 +64,275 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
 
 <section
   id="problem-solving"
-  class="section-shell bg-teal-50/60"
+  class="section-shell bg-[#080b12] text-slate-100"
   data-dsa-section
   data-leetcode-username={username}
   data-tuf-username={tufUsername}
   data-codechef-username={codechefUsername}
 >
-  <div class="section-grid">
-    <div>
-      <p class="eyebrow">03 / practice</p>
-      <h2 class="section-title">Problem Solving</h2>
-      <p class="mt-6 max-w-xl text-lg leading-relaxed text-slate-600">
-        Data Structures & Algorithms practice across LeetCode, TakeUForward (TUF), and CodeChef, with real-time stats synchronization and active focus on Medium & Hard problems.
-      </p>
+  <div class="max-w-7xl mx-auto space-y-10">
+    <!-- Header with Live Sync Status -->
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-6 border-b border-slate-800">
+      <div>
+        <p class="eyebrow">03 / practice</p>
+        <h2 class="section-title text-white">Problem Solving</h2>
+        <p class="mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-slate-400">
+          Data Structures & Algorithms across LeetCode, TakeUForward (TUF+), and CodeChef, featuring real-time statistics synchronization and focused problem solving.
+        </p>
+      </div>
 
       <!-- Live Sync Status Indicator -->
-      <div class="mt-5 inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide border border-teal-200 bg-white/95 backdrop-blur-xs shadow-xs">
+      <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-xs font-semibold tracking-wide border border-teal-500/30 bg-teal-950/40 backdrop-blur-md shadow-inner">
         <span class="relative flex h-2.5 w-2.5">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" data-sync-pulse></span>
           <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" data-sync-dot></span>
         </span>
-        <span class="text-teal-900 font-mono" data-sync-status>Live DSA Sync Active (LeetCode • TUF • CodeChef)</span>
+        <span class="text-teal-300 font-mono" data-sync-status>Live DSA Sync Active (LeetCode • TUF+ • CodeChef)</span>
       </div>
+    </div>
 
-      <div class="mt-3 text-xs text-slate-500 font-mono flex flex-wrap items-center gap-2">
-        <span>LeetCode: <strong class="text-slate-800">@{username}</strong></span>
-        <span class="text-slate-300">•</span>
-        <span>Global Rank: <strong class="text-teal-800 font-bold" data-leetcode-stat="ranking">#{initialRanking}</strong></span>
-      </div>
+    <!-- 3 Equal Box Size Cards for LeetCode, TakeUForward (TUF+), and CodeChef -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+      
+      <!-- BOX 1: LeetCode (Uniform Card Height & Structure) -->
+      <div class="rounded-2xl border border-slate-800 bg-[#0d1527] p-6 shadow-xl flex flex-col justify-between h-full hover:border-amber-500/40 transition-all duration-300 relative overflow-hidden group">
+        <!-- Subtle Glow -->
+        <div class="absolute -top-16 -right-16 w-36 h-36 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all pointer-events-none"></div>
 
-      <a class="inline-link mt-5 group" href={stats.link} target="_blank" rel="noopener noreferrer">
-        <span>View LeetCode Profile</span>
-        <span class="transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
-      </a>
-
-      <!-- Real-Time TakeUForward & CodeChef Live Cards -->
-      <div class="mt-8 grid gap-4 sm:grid-cols-2">
-        <!-- TakeUForward Live Card -->
-        <a
-          href={siteConfig.social?.takeuforward || `https://takeuforward.org/profile/${tufUsername}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="group block rounded-xl border border-teal-200 bg-white p-5 shadow-xs transition-all duration-300 hover:border-teal-400 hover:shadow-md relative overflow-hidden"
-          data-tuf-card
-        >
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <span class="px-2 py-0.5 rounded bg-teal-100 text-teal-900 text-xs font-mono font-bold">TUF</span>
-              <span class="text-xs font-mono font-semibold uppercase tracking-wider text-slate-700">TakeUForward</span>
+        <div>
+          <!-- Platform Header -->
+          <div class="flex items-center justify-between pb-4 border-b border-slate-800/80">
+            <div class="flex items-center gap-2.5">
+              <span class="px-2 py-1 rounded-md bg-amber-500/20 border border-amber-500/40 text-amber-400 text-xs font-mono font-bold">LC</span>
+              <div>
+                <h3 class="font-bold text-white text-base">LeetCode</h3>
+                <span class="text-[11px] font-mono text-slate-400">@{username}</span>
+              </div>
             </div>
-            <div class="flex items-center gap-1.5 text-xs text-teal-700">
-              <span class="transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-[11px] font-mono text-emerald-400">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Live Synced
+            </span>
+          </div>
+
+          <!-- Hero Highlight Metric -->
+          <div class="mt-5">
+            <span class="text-xs font-mono uppercase tracking-wider text-slate-400">Total Solved</span>
+            <div class="flex items-baseline gap-2 mt-1">
+              <strong class="text-4xl sm:text-5xl font-bold tracking-tight text-white font-mono" data-leetcode-stat="solved">{initialSolved}</strong>
+              <span class="text-xs font-mono text-slate-400">problems</span>
             </div>
           </div>
 
-          <div class="mt-4 flex items-baseline justify-between">
-            <div>
-              <strong class="text-3xl font-bold text-slate-900 tracking-tight" data-tuf-stat="solved">{initialTufSolved}</strong>
-              <span class="text-xs text-slate-500 block mt-0.5">Problems Solved</span>
+          <!-- Stats Grid -->
+          <div class="mt-5 grid grid-cols-3 gap-2 p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+            <div class="text-center">
+              <span class="text-[10px] uppercase font-mono tracking-wider text-emerald-400 block">Easy</span>
+              <strong class="text-lg font-bold text-white font-mono" data-leetcode-stat="easy">{initialEasy}</strong>
             </div>
-            <div class="text-right">
-              <span class="text-sm font-bold text-slate-700 font-mono" data-tuf-stat="total">/ {initialTufTotal}</span>
-              <span class="text-[11px] text-slate-500 block">DSA Sheet</span>
+            <div class="text-center border-x border-slate-800">
+              <span class="text-[10px] uppercase font-mono tracking-wider text-amber-400 block">Medium</span>
+              <strong class="text-lg font-bold text-white font-mono" data-leetcode-stat="medium">{initialMedium}</strong>
+            </div>
+            <div class="text-center">
+              <span class="text-[10px] uppercase font-mono tracking-wider text-rose-400 block">Hard</span>
+              <strong class="text-lg font-bold text-white font-mono" data-leetcode-stat="hard">{initialHard}</strong>
             </div>
           </div>
 
-          <!-- TUF Completion Bar -->
-          <div class="mt-3">
-            <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+          <!-- Meta rows -->
+          <div class="mt-4 space-y-2 text-xs font-mono text-slate-400">
+            <div class="flex items-center justify-between py-1 border-b border-slate-800/60">
+              <span>Global Rank:</span>
+              <strong class="text-teal-400" data-leetcode-stat="ranking">#{initialRanking}</strong>
+            </div>
+            <div class="flex items-center justify-between py-1 border-b border-slate-800/60">
+              <span>Acceptance Rate:</span>
+              <strong class="text-white" data-leetcode-stat="acceptance">{initialAcceptance}</strong>
+            </div>
+            <div class="flex items-center justify-between py-1">
+              <span>Submissions:</span>
+              <strong class="text-slate-300" data-leetcode-stat="submissions">{initialSubmissions}</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Footer Action Link -->
+        <div class="mt-6 pt-4 border-t border-slate-800">
+          <a
+            href={stats.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-between w-full text-xs font-mono font-semibold text-amber-400 hover:text-amber-300 transition-colors group/link"
+          >
+            <span>View LeetCode Profile</span>
+            <span class="transition-transform duration-200 group-hover/link:translate-x-1" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- BOX 2: TakeUForward / TUF+ (Uniform Card Height & Structure) -->
+      <div class="rounded-2xl border border-slate-800 bg-[#0d1527] p-6 shadow-xl flex flex-col justify-between h-full hover:border-teal-500/40 transition-all duration-300 relative overflow-hidden group">
+        <!-- Subtle Glow -->
+        <div class="absolute -top-16 -right-16 w-36 h-36 bg-teal-500/10 rounded-full blur-2xl group-hover:bg-teal-500/20 transition-all pointer-events-none"></div>
+
+        <div>
+          <!-- Platform Header -->
+          <div class="flex items-center justify-between pb-4 border-b border-slate-800/80">
+            <div class="flex items-center gap-2.5">
+              <span class="px-2 py-1 rounded-md bg-teal-500/20 border border-teal-500/40 text-teal-300 text-xs font-mono font-bold">TUF+</span>
+              <div>
+                <h3 class="font-bold text-white text-base">TakeUForward</h3>
+                <span class="text-[11px] font-mono text-slate-400">@{tufUsername}</span>
+              </div>
+            </div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-[11px] font-mono text-emerald-400" data-tuf-status>
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Live Synced
+            </span>
+          </div>
+
+          <!-- Hero Highlight Metric: TUF+ Score & Solved -->
+          <div class="mt-5">
+            <span class="text-xs font-mono uppercase tracking-wider text-slate-400">TUF+ Score & Solved</span>
+            <div class="flex items-baseline gap-2 mt-1">
+              <strong class="text-4xl sm:text-5xl font-bold tracking-tight text-white font-mono" data-tuf-stat="score">{initialTufSolved}</strong>
+              <span class="text-xs font-mono text-teal-400 font-semibold" data-tuf-stat="total">/ {initialTufTotal} Target</span>
+            </div>
+          </div>
+
+          <!-- TUF Completion Bar Container -->
+          <div class="mt-5 p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+            <div class="flex items-center justify-between text-xs font-mono text-slate-300 mb-2">
+              <span>Sheet Progress</span>
+              <strong class="text-teal-300" data-tuf-stat="percent">{tufPercent}% completed</strong>
+            </div>
+            <div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
               <div
-                class="bg-teal-600 h-1.5 rounded-full transition-all duration-700"
+                class="bg-gradient-to-r from-teal-500 to-emerald-400 h-2 rounded-full transition-all duration-700"
                 data-tuf-bar
                 style={`width: ${tufPercent}%`}
               ></div>
             </div>
-            <div class="mt-1.5 flex items-center justify-between text-[11px] font-mono text-slate-500">
-              <span data-tuf-stat="percent">{tufPercent}% completed</span>
-              <span class="text-emerald-700 font-semibold flex items-center gap-1" data-tuf-status>
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live Synced
-              </span>
-            </div>
-          </div>
-        </a>
-
-        <!-- CodeChef Live Card -->
-        <a
-          href={siteConfig.social?.codechef || `https://www.codechef.com/users/${codechefUsername}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="group block rounded-xl border border-teal-200 bg-white p-5 shadow-xs transition-all duration-300 hover:border-teal-400 hover:shadow-md relative overflow-hidden"
-          data-codechef-card
-        >
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 text-xs font-mono font-bold">CC</span>
-              <span class="text-xs font-mono font-semibold uppercase tracking-wider text-slate-700">CodeChef</span>
-            </div>
-            <div class="flex items-center gap-1.5 text-xs text-teal-700">
-              <span class="transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
+            <div class="mt-2 flex items-center justify-between text-[10px] font-mono text-slate-400">
+              <span>0 Solved</span>
+              <span>1,494 Full Target</span>
             </div>
           </div>
 
-          <div class="mt-4 flex items-baseline justify-between">
-            <div>
-              <div class="flex items-center gap-2">
-                <strong class="text-3xl font-bold text-slate-900 tracking-tight" data-codechef-stat="rating">{initialCodechefRating}</strong>
-                <span class="px-1.5 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 text-xs font-bold font-mono" data-codechef-stat="stars">{initialCodechefStars}</span>
+          <!-- Meta rows -->
+          <div class="mt-4 space-y-2 text-xs font-mono text-slate-400">
+            <div class="flex items-center justify-between py-1 border-b border-slate-800/60">
+              <span>TUF+ Profile Score:</span>
+              <strong class="text-teal-300 font-bold" data-tuf-stat="solved">{initialTufSolved} pts</strong>
+            </div>
+            <div class="flex items-center justify-between py-1 border-b border-slate-800/60">
+              <span>DSA Curriculum:</span>
+              <strong class="text-white">Striver's A2Z & SDE</strong>
+            </div>
+            <div class="flex items-center justify-between py-1">
+              <span>Track Status:</span>
+              <strong class="text-emerald-400">Active Daily Practice</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Footer Action Link -->
+        <div class="mt-6 pt-4 border-t border-slate-800">
+          <a
+            href={siteConfig.social?.takeuforward || `https://takeuforward.org/profile/${tufUsername}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-between w-full text-xs font-mono font-semibold text-teal-400 hover:text-teal-300 transition-colors group/link"
+          >
+            <span>View TUF+ Profile</span>
+            <span class="transition-transform duration-200 group-hover/link:translate-x-1" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- BOX 3: CodeChef (Uniform Card Height & Structure - Shows BOTH DSA & Normal Rating) -->
+      <div class="rounded-2xl border border-slate-800 bg-[#0d1527] p-6 shadow-xl flex flex-col justify-between h-full hover:border-amber-500/40 transition-all duration-300 relative overflow-hidden group">
+        <!-- Subtle Glow -->
+        <div class="absolute -top-16 -right-16 w-36 h-36 bg-amber-600/10 rounded-full blur-2xl group-hover:bg-amber-600/20 transition-all pointer-events-none"></div>
+
+        <div>
+          <!-- Platform Header -->
+          <div class="flex items-center justify-between pb-4 border-b border-slate-800/80">
+            <div class="flex items-center gap-2.5">
+              <span class="px-2 py-1 rounded-md bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-mono font-bold">CC</span>
+              <div>
+                <h3 class="font-bold text-white text-base">CodeChef</h3>
+                <span class="text-[11px] font-mono text-slate-400">@{codechefUsername}</span>
               </div>
-              <span class="text-xs text-slate-500 block mt-0.5">DSA Rating</span>
             </div>
-            <div class="text-right">
-              <strong class="text-sm font-bold text-slate-800 font-mono" data-codechef-stat="rank">#{initialCodechefRank}</strong>
-              <span class="text-[11px] text-slate-500 block">Global Rank</span>
-            </div>
-          </div>
-
-          <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-500">
-            <span>Peak: <strong class="text-slate-800" data-codechef-stat="maxRating">{initialCodechefMaxRating}</strong></span>
-            <span class="text-emerald-700 font-semibold flex items-center gap-1" data-codechef-status>
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live Synced
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-[11px] font-mono text-emerald-400" data-codechef-status>
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Live Synced
             </span>
           </div>
-        </a>
+
+          <!-- Hero Highlight Metric: Rating -->
+          <div class="mt-5">
+            <span class="text-xs font-mono uppercase tracking-wider text-slate-400">Contest & DSA Rating</span>
+            <div class="flex items-baseline gap-2 mt-1">
+              <strong class="text-4xl sm:text-5xl font-bold tracking-tight text-white font-mono" data-codechef-stat="rating">{initialCodechefRating}</strong>
+              <span class="px-2 py-0.5 rounded-md bg-amber-500/20 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold" data-codechef-stat="stars">{initialCodechefStars}</span>
+            </div>
+          </div>
+
+          <!-- Dual Rating Grid: SHOWS BOTH DSA & NORMAL / CONTEST RATING -->
+          <div class="mt-5 grid grid-cols-2 gap-2 p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+            <div class="text-center border-r border-slate-800 pr-2">
+              <span class="text-[10px] uppercase font-mono tracking-wider text-amber-400 block">DSA Rating</span>
+              <strong class="text-lg font-bold text-white font-mono" data-codechef-stat="dsaRating">{initialCodechefRating} ({initialCodechefStars})</strong>
+            </div>
+            <div class="text-center pl-2">
+              <span class="text-[10px] uppercase font-mono tracking-wider text-teal-400 block">Normal Rating</span>
+              <strong class="text-lg font-bold text-white font-mono" data-codechef-stat="normalRating">{initialCodechefRating}</strong>
+            </div>
+          </div>
+
+          <!-- Meta rows -->
+          <div class="mt-4 space-y-2 text-xs font-mono text-slate-400">
+            <div class="flex items-center justify-between py-1 border-b border-slate-800/60">
+              <span>Global Rank:</span>
+              <strong class="text-amber-300 font-bold" data-codechef-stat="rank">#{initialCodechefRank}</strong>
+            </div>
+            <div class="flex items-center justify-between py-1 border-b border-slate-800/60">
+              <span>Peak Rating:</span>
+              <strong class="text-white" data-codechef-stat="maxRating">{initialCodechefMaxRating}</strong>
+            </div>
+            <div class="flex items-center justify-between py-1">
+              <span>Division:</span>
+              <strong class="text-slate-300">Div 4 (1 Star)</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Footer Action Link -->
+        <div class="mt-6 pt-4 border-t border-slate-800">
+          <a
+            href={siteConfig.social?.codechef || `https://www.codechef.com/users/${codechefUsername}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-between w-full text-xs font-mono font-semibold text-amber-400 hover:text-amber-300 transition-colors group/link"
+          >
+            <span>View CodeChef Profile</span>
+            <span class="transition-transform duration-200 group-hover/link:translate-x-1" aria-hidden="true">→</span>
+          </a>
+        </div>
       </div>
+
     </div>
 
-    <div class="space-y-6">
-      <!-- Main LeetCode Stats Grid -->
-      <div class="grid grid-cols-2 gap-px overflow-hidden border border-teal-200 bg-teal-200 shadow-xs sm:grid-cols-4 rounded-xl">
-        <div class="stat stat-featured col-span-2 sm:col-span-2 p-5 bg-teal-800 text-white">
-          <div class="flex items-center justify-between">
-            <span class="text-xs uppercase tracking-wider font-semibold text-teal-100">Total Solved</span>
-            <span class="text-xs px-2 py-0.5 rounded bg-teal-700/80 font-mono text-teal-100">LeetCode</span>
-          </div>
-          <strong class="text-3xl sm:text-4xl mt-2 font-bold tracking-tight text-white" data-leetcode-stat="solved">
-            {initialSolved}
-          </strong>
-          <span class="text-xs text-teal-100/90 mt-1">Verified DSA solutions</span>
+    <!-- Secondary Row: Difficulty Distribution Bar & Recent Accepted Submissions in Dark Palette -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <!-- LeetCode Difficulty Distribution -->
+      <div class="lg:col-span-5 rounded-2xl border border-slate-800 bg-[#0d1527] p-6 shadow-xl">
+        <div class="flex items-center justify-between text-xs font-mono font-semibold text-slate-300 mb-4">
+          <span class="uppercase tracking-wider">Difficulty Distribution</span>
+          <span class="text-teal-400">LeetCode Sync</span>
         </div>
 
-        <div class="stat p-4 bg-white">
-          <span class="text-xs font-semibold text-amber-700 uppercase tracking-wider">Medium</span>
-          <strong class="text-2xl font-bold text-slate-900 mt-1" data-leetcode-stat="medium">
-            {initialMedium}
-          </strong>
-          <span class="text-xs text-slate-500">Core focus</span>
-        </div>
-
-        <div class="stat p-4 bg-white">
-          <span class="text-xs font-semibold text-rose-700 uppercase tracking-wider">Hard</span>
-          <strong class="text-2xl font-bold text-slate-900 mt-1" data-leetcode-stat="hard">
-            {initialHard}
-          </strong>
-          <span class="text-xs text-slate-500">Advanced</span>
-        </div>
-
-        <div class="stat p-4 bg-white">
-          <span class="text-xs font-semibold text-emerald-700 uppercase tracking-wider">Easy</span>
-          <strong class="text-2xl font-bold text-slate-900 mt-1" data-leetcode-stat="easy">
-            {initialEasy}
-          </strong>
-          <span class="text-xs text-slate-500">Fundamentals</span>
-        </div>
-
-        <div class="stat p-4 bg-white">
-          <span class="text-xs font-semibold text-slate-600 uppercase tracking-wider">Submissions</span>
-          <strong class="text-2xl font-bold text-slate-900 mt-1" data-leetcode-stat="submissions">
-            {initialSubmissions}
-          </strong>
-          <span class="text-xs text-slate-500">Total runs</span>
-        </div>
-
-        <div class="stat p-4 bg-white col-span-2">
-          <span class="text-xs font-semibold text-teal-700 uppercase tracking-wider">Acceptance Rate</span>
-          <strong class="text-2xl font-bold text-slate-900 mt-1" data-leetcode-stat="acceptance">
-            {initialAcceptance}
-          </strong>
-          <span class="text-xs text-slate-500">Overall solution efficiency</span>
-        </div>
-      </div>
-
-      <!-- Difficulty Breakdown Bars -->
-      <div class="bg-white border border-teal-200 rounded-xl p-5 shadow-xs">
-        <div class="flex items-center justify-between text-xs font-mono font-semibold text-slate-700 mb-3">
-          <span>DIFFICULTY DISTRIBUTION</span>
-          <span class="text-teal-700">Live Metric</span>
-        </div>
-        <div class="h-3 w-full rounded-full bg-slate-100 overflow-hidden flex">
+        <div class="h-3 w-full rounded-full bg-slate-800 overflow-hidden flex">
           <div
             id="bar-easy"
             class="bg-emerald-500 transition-all duration-500"
@@ -270,53 +352,54 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
             title={`Hard: ${initialHard}`}
           ></div>
         </div>
-        <div class="mt-3 grid grid-cols-3 text-xs font-mono text-slate-600 pt-1 border-t border-slate-100">
+
+        <div class="mt-4 grid grid-cols-3 text-xs font-mono text-slate-300 pt-3 border-t border-slate-800">
           <div class="flex items-center gap-1.5">
             <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            <span>Easy: <strong class="text-slate-800" data-leetcode-bar-val="easy">{initialEasy}</strong></span>
+            <span>Easy: <strong class="text-white" data-leetcode-bar-val="easy">{initialEasy}</strong></span>
           </div>
           <div class="flex items-center gap-1.5">
             <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-            <span>Med: <strong class="text-slate-800" data-leetcode-bar-val="medium">{initialMedium}</strong></span>
+            <span>Med: <strong class="text-white" data-leetcode-bar-val="medium">{initialMedium}</strong></span>
           </div>
           <div class="flex items-center gap-1.5">
             <span class="w-2 h-2 rounded-full bg-rose-500"></span>
-            <span>Hard: <strong class="text-slate-800" data-leetcode-bar-val="hard">{initialHard}</strong></span>
+            <span>Hard: <strong class="text-white" data-leetcode-bar-val="hard">{initialHard}</strong></span>
           </div>
         </div>
       </div>
 
       <!-- Recent Solved Problems Feed -->
-      <div class="bg-white border border-teal-200 rounded-xl p-5 shadow-xs">
-        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+      <div class="lg:col-span-7 rounded-2xl border border-slate-800 bg-[#0d1527] p-6 shadow-xl">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
           <div class="flex items-center gap-2">
-            <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <h3 class="text-xs font-bold font-mono tracking-wider text-slate-700 uppercase">Recent Accepted Submissions</h3>
+            <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <h3 class="text-xs font-bold font-mono tracking-wider text-slate-200 uppercase">Recent Accepted Submissions</h3>
           </div>
-          <span class="text-[11px] font-mono text-teal-700">Live Sync</span>
+          <span class="text-[11px] font-mono text-teal-400">Live Stream</span>
         </div>
 
-        <ul class="divide-y divide-slate-100 mt-2 text-sm" data-leetcode-recent-list>
+        <ul class="divide-y divide-slate-800/80 mt-2 text-sm" data-leetcode-recent-list>
           {initialRecent.map((item) => (
             <li class="py-2.5 flex items-center justify-between gap-3">
               <div class="flex items-center gap-2.5 min-w-0">
-                <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
                 <a
                   href={`https://leetcode.com/problems/${item.slug}/`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="font-medium text-slate-800 hover:text-teal-700 truncate transition-colors"
+                  class="font-medium text-slate-200 hover:text-teal-300 truncate transition-colors text-xs sm:text-sm"
                 >
                   {item.title}
                 </a>
               </div>
               <div class="flex items-center gap-2 shrink-0">
-                <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-mono">
+                <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono">
                   {item.lang}
                 </span>
-                <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">
+                <span class="text-[10px] font-semibold text-emerald-300 bg-emerald-950/60 border border-emerald-800/60 px-2 py-0.5 rounded">
                   Accepted
                 </span>
               </div>
@@ -386,23 +469,23 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
     recentListEl.innerHTML = accepted.map((sub: any) => `
       <li class="py-2.5 flex items-center justify-between gap-3">
         <div class="flex items-center gap-2.5 min-w-0">
-          <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
           </svg>
           <a
             href="https://leetcode.com/problems/${sub.titleSlug || ""}/"
             target="_blank"
             rel="noopener noreferrer"
-            class="font-medium text-slate-800 hover:text-teal-700 truncate transition-colors"
+            class="font-medium text-slate-200 hover:text-teal-300 truncate transition-colors text-xs sm:text-sm"
           >
             ${sub.title}
           </a>
         </div>
         <div class="flex items-center gap-2 shrink-0">
-          <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-mono">
+          <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono">
             ${sub.lang === "python3" ? "Python 3" : sub.lang || "Code"}
           </span>
-          <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">
+          <span class="text-[10px] font-semibold text-emerald-300 bg-emerald-950/60 border border-emerald-800/60 px-2 py-0.5 rounded">
             Accepted
           </span>
         </div>
@@ -484,7 +567,7 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
     for (const url of endpoints) {
       try {
         const json = await fetchWithTimeout(url, 6000);
-        if (json && (json.totalSolved !== undefined || json.data)) {
+        if (json && (json.totalSolved || json.data?.totalSolved)) {
           liveData = json.data || json;
           break;
         }
@@ -499,14 +582,15 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
     }
   };
 
-  // 2. TAKEUFORWARD (TUF) REAL-TIME SYNC
+  // 2. TAKEUFORWARD (TUF+) REAL-TIME SYNC
   const applyTufData = (tufData: any) => {
     const solved = tufData.totalSolved ?? tufData.total_solved;
     const total = tufData.totalQuestions ?? tufData.total_dsa ?? 1494;
 
     if (solved !== undefined) {
-      setElText('[data-tuf-stat="solved"]', formatNumber(solved));
-      setElText('[data-tuf-stat="total"]', `/ ${formatNumber(total)}`);
+      setElText('[data-tuf-stat="score"]', formatNumber(solved));
+      setElText('[data-tuf-stat="solved"]', `${formatNumber(solved)} pts`);
+      setElText('[data-tuf-stat="total"]', `/ ${formatNumber(total)} Target`);
 
       const pct = ((solved / total) * 100).toFixed(1);
       setElText('[data-tuf-stat="percent"]', `${pct}% completed`);
@@ -516,7 +600,7 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
 
       const tufStatus = section?.querySelector("[data-tuf-status]");
       if (tufStatus) {
-        tufStatus.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live Synced`;
+        tufStatus.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Live Synced`;
       }
     }
   };
@@ -552,14 +636,18 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
     }
   };
 
-  // 3. CODECHEF REAL-TIME SYNC
+  // 3. CODECHEF REAL-TIME SYNC (DSA & NORMAL RATING)
   const applyCodeChefData = (ccData: any) => {
     const rating = ccData.rating_number ?? ccData.currentRating;
-    const stars = ccData.rating ?? ccData.stars;
+    const stars = ccData.rating ?? ccData.stars ?? "1★";
     const maxRating = ccData.max_rank ?? ccData.highestRating ?? rating;
     let globalRank = ccData.global_rank ?? ccData.globalRank;
 
-    if (rating !== undefined) setElText('[data-codechef-stat="rating"]', formatNumber(rating));
+    if (rating !== undefined) {
+      setElText('[data-codechef-stat="rating"]', formatNumber(rating));
+      setElText('[data-codechef-stat="normalRating"]', formatNumber(rating));
+      setElText('[data-codechef-stat="dsaRating"]', `${formatNumber(rating)} (${String(stars).trim()})`);
+    }
     if (stars) setElText('[data-codechef-stat="stars"]', String(stars).trim());
     if (maxRating) setElText('[data-codechef-stat="maxRating"]', formatNumber(maxRating));
 
@@ -570,7 +658,7 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
 
     const ccStatus = section?.querySelector("[data-codechef-status]");
     if (ccStatus) {
-      ccStatus.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live Synced`;
+      ccStatus.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Live Synced`;
     }
   };
 
@@ -605,7 +693,6 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
     }
   };
 
-  // Run all real-time syncs concurrently
   const initSync = async () => {
     await Promise.allSettled([
       loadLeetCodeStats(),
@@ -615,7 +702,7 @@ const tufPercent = ((initialTufSolved / initialTufTotal) * 100).toFixed(1);
 
     if (statusEl) {
       const timeStr = new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" });
-      statusEl.textContent = `Live DSA Sync Active • LeetCode, TUF & CodeChef (${timeStr})`;
+      statusEl.textContent = `Live DSA Sync Active • LeetCode, TUF+ & CodeChef (${timeStr})`;
     }
     if (pulseEl) pulseEl.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75";
     if (dotEl) dotEl.className = "relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500";

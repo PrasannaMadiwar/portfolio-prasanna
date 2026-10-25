@@ -97,13 +97,20 @@ export const siteConfig = {
     acceptance: "60.52%",
     link: "https://leetcode.com/u/LzLJWzHwdb/",
     tufUsername: "prasannamadiwar",
+    tufPlusScore: 513,
+    tufTotalQuestions: 1494,
     codechefUsername: "prasanna_m146",
+    codechefDsaRating: "1124 (1★)",
+    codechefNormalRating: "1124",
+    codechefMaxRating: "1124",
+    codechefGlobalRank: "1,11,226",
     platforms: [
       {
-        name: "TakeUForward",
+        name: "TakeUForward (TUF+)",
         id: "takeuforward",
         link: "https://takeuforward.org/profile/prasannamadiwar",
         stats: [
+          { value: "513", label: "TUF+ Score" },
           { value: "513", label: "Problems solved" },
           { value: "1,494", label: "Sheet questions" },
         ],
@@ -114,6 +121,7 @@ export const siteConfig = {
         link: "https://www.codechef.com/users/prasanna_m146",
         stats: [
           { value: "1124", label: "DSA rating (1★)" },
+          { value: "1124", label: "Normal / Contest rating" },
           { value: "#1,11,226", label: "Global rank" },
         ],
       },
